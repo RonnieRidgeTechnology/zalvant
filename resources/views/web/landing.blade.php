@@ -1176,11 +1176,7 @@
                 <div class="service-icon">
                     <img src="{{ asset('assets/web/images/Mobile.png') }}" alt="Mobile">
                 </div>
-<<<<<<< HEAD
               {{ __('web.services_cards.mobile_app') }}
-=======
-                {{ __('web.services_cards.mobile_app') }}
->>>>>>> a749c76953b49247cdc5fa4dc02ca1bca2e2b47a
             </div>
         </a>
         <a href="#">
