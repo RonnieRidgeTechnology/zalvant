@@ -1033,11 +1033,108 @@
 @section('meta_desc', $homeupdate->getLocalizedMetaDesc())
 @section('meta_keyword', $homeupdate->getLocalizedMetaKeyword())
 @section('content')
+@if(isset($landingPage) && $landingPage)
+    <!-- Landing Page Content Section -->
+    <div class="landing-page-content" style="padding: 60px 20px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white;">
+        <div class="container" style="max-width: 1200px; margin: 0 auto;">
+            <!-- Header Section -->
+            <div class="landing-header" style="text-align: center; margin-bottom: 60px;">
+                <h1 style="font-size: 3rem; font-weight: 700; margin-bottom: 20px; text-shadow: 2px 2px 4px rgba(0,0,0,0.2);">
+                    {{ $landingPage->getLocalized('header_title', $locale) }}
+                </h1>
+                <p style="font-size: 1.25rem; line-height: 1.8; max-width: 800px; margin: 0 auto; opacity: 0.95;">
+                    {{ $landingPage->getLocalized('header_desc', $locale) }}
+                </p>
+            </div>
+
+            <!-- Featured Image -->
+            @if($landingPage->file)
+                <div class="landing-image" style="text-align: center; margin-bottom: 60px;">
+                    <img src="{{ asset($landingPage->file) }}" alt="{{ $landingPage->getLocalized('header_title', $locale) }}" 
+                         style="max-width: 100%; height: auto; border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.3);">
+                </div>
+            @endif
+
+            <!-- Second Section -->
+            @if($landingPage->getLocalized('second_title', $locale) || $landingPage->getLocalized('second_desc', $locale))
+                <div class="landing-section" style="background: rgba(255,255,255,0.1); padding: 40px; border-radius: 12px; margin-bottom: 40px; backdrop-filter: blur(10px);">
+                    @if($landingPage->getLocalized('second_title', $locale))
+                        <h2 style="font-size: 2.5rem; font-weight: 600; margin-bottom: 20px;">
+                            {{ $landingPage->getLocalized('second_title', $locale) }}
+                        </h2>
+                    @endif
+                    @if($landingPage->getLocalized('second_desc', $locale))
+                        <p style="font-size: 1.1rem; line-height: 1.8; opacity: 0.95;">
+                            {{ $landingPage->getLocalized('second_desc', $locale) }}
+                        </p>
+                    @endif
+                </div>
+            @endif
+
+            <!-- Feature Blocks -->
+            @if($landingPage->feature_blocks && count($landingPage->feature_blocks) > 0)
+                <div class="landing-features" style="margin-bottom: 60px;">
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px;">
+                        @foreach($landingPage->getLocalizedFeatures($locale) as $feature)
+                            @if($feature['title'] || $feature['desc'])
+                                <div class="feature-card" style="background: rgba(255,255,255,0.15); padding: 30px; border-radius: 12px; backdrop-filter: blur(10px); transition: transform 0.3s ease;">
+                                    @if($feature['icon'])
+                                        <div style="margin-bottom: 20px;">
+                                            <img src="{{ asset('storage/' . $feature['icon']) }}" alt="{{ $feature['title'] }}" 
+                                                 style="width: 60px; height: 60px; object-fit: contain;">
+                                        </div>
+                                    @endif
+                                    @if($feature['title'])
+                                        <h3 style="font-size: 1.5rem; font-weight: 600; margin-bottom: 12px;">
+                                            {{ $feature['title'] }}
+                                        </h3>
+                                    @endif
+                                    @if($feature['desc'])
+                                        <p style="font-size: 1rem; line-height: 1.6; opacity: 0.9;">
+                                            {{ $feature['desc'] }}
+                                        </p>
+                                    @endif
+                                </div>
+                            @endif
+                        @endforeach
+                    </div>
+                </div>
+            @endif
+
+            <!-- Third Section -->
+            @if($landingPage->getLocalized('third_title', $locale) || $landingPage->getLocalized('third_desc', $locale))
+                <div class="landing-section" style="background: rgba(255,255,255,0.1); padding: 40px; border-radius: 12px; backdrop-filter: blur(10px);">
+                    @if($landingPage->getLocalized('third_title', $locale))
+                        <h2 style="font-size: 2.5rem; font-weight: 600; margin-bottom: 20px;">
+                            {{ $landingPage->getLocalized('third_title', $locale) }}
+                        </h2>
+                    @endif
+                    @if($landingPage->getLocalized('third_desc', $locale))
+                        <p style="font-size: 1.1rem; line-height: 1.8; opacity: 0.95;">
+                            {{ $landingPage->getLocalized('third_desc', $locale) }}
+                        </p>
+                    @endif
+                </div>
+            @endif
+        </div>
+    </div>
+@endif
+
 <div class="maintformsection" style="margin-top: 20px;">
     <div class="sectiontestss">
-        <h1 id="zalvant-form-title">{{ $banner?->getLocalizedBannerHeadTitle() ?? 'Get Started with Zalvant' }}</h1>
+        <h1 id="zalvant-form-title">
+            @if(isset($landingPage) && $landingPage)
+                {{ $landingPage->getLocalized('header_title', $locale ?? 'nl') }}
+            @else
+                {{ $banner?->getLocalizedBannerHeadTitle() ?? 'Get Started with Zalvant' }}
+            @endif
+        </h1>
         <p id="zalvant-form-desc">
-            {{ $banner?->getLocalizedBannerHeadPara() ?? 'Transform your digital presence with our expert solutions' }}
+            @if(isset($landingPage) && $landingPage)
+                {{ $landingPage->getLocalized('header_desc', $locale ?? 'nl') }}
+            @else
+                {{ $banner?->getLocalizedBannerHeadPara() ?? 'Transform your digital presence with our expert solutions' }}
+            @endif
         </p>
     </div>
     <section class="zalvant-form-section">

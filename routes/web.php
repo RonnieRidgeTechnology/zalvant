@@ -8,6 +8,7 @@ use App\Http\Controllers\BasicController;
 use App\Http\Controllers\BlogCategoryController;
 use App\Http\Controllers\BlogController;
 use App\Http\Controllers\LandingFormLabelController;
+use App\Http\Controllers\LandingPageController;
 use App\Http\Controllers\BlogUpdateController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\ContactUpdateController;
@@ -184,6 +185,8 @@ Route::get('/blogs/{id}/edit', [BlogController::class, 'edit'])->name('blogs.edi
     Route::get('/landing-list', [LandingController::class, 'landinglist'])->name('landing.index');
     Route::delete('/landing-delete/{id}', [LandingController::class, 'landingdelete'])->name('landing.delete');
     Route::get('/landing/search', [LandingController::class, 'landingSearch'])->name('landing.search');
+    // Landing pages CRUD
+    Route::resource('landing-pages', LandingPageController::class)->except(['show']);
     Route::get('actions', [ActionController::class, 'index'])->name('actions.index');
     Route::post('/action-save',[ActionController::class,'store'])->name('action-store');
     Route::get('/action-countless',[CountlessController::class,'index'])->name('action-countless');
@@ -200,6 +203,7 @@ Route::get('/blogs/{id}/edit', [BlogController::class, 'edit'])->name('blogs.edi
 
 Route::get('/', [BasicController::class, 'index'])->name('home.index');
 Route::get('/book-a-form', [BasicController::class, 'landingPage'])->name('home.landing');
+Route::get('/landing/{slug}', [BasicController::class, 'landingPageByService'])->name('landing.by-service');
 Route::get('/about-us', [BasicController::class, 'about'])->name('about-us');
 Route::get('/contact-us', [BasicController::class, 'contact'])->name('contact-us');
 Route::get('/sitemap', [BasicController::class, 'sitemap'])->name('sitemap');

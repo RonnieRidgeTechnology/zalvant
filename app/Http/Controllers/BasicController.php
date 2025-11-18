@@ -15,6 +15,7 @@ use App\Models\ContactUpdate;
 use App\Models\CoreValue;
 use App\Models\Faq;
 use App\Models\LandingFormLabel;
+use App\Models\LandingPage;
 use App\Models\HomeUpdate;
 use App\Models\Portfolio;
 use App\Models\PortfolioUpdate;
@@ -26,7 +27,6 @@ use App\Models\TermsAndCondition;
 use App\Models\Testimonial;
 use App\Models\Websetting;
 use App\Models\WhyChooseUs;
-use App\Models\LandingFormLabel;
 use Illuminate\Http\Request;
 
 class BasicController extends Controller
@@ -67,6 +67,58 @@ class BasicController extends Controller
         $banner = banner::first();
         $formLabels = LandingFormLabel::first();
         return view('web.landing', compact('homeupdate', 'testimonials', 'aideals', 'technologies', 'faqs', 'portfolio', 'services','aidevelopment_services','stat','actionData','banner','formLabels'));
+    }
+
+    public function landingPageByService($slug)
+    {
+        // Find service by slug
+        $service = Service::where('slug', $slug)->where('status', 1)->firstOrFail();
+        
+        // Find landing page associated with this service
+        $landingPage = LandingPage::where('service_id', $service->id)->first();
+        
+        // If no landing page found, redirect to 404 or default landing page
+        if (!$landingPage) {
+            abort(404, 'Landing page not found for this service.');
+        }
+
+        // Get current locale from cookie or default to 'nl'
+        $locale = request()->cookie('locale', 'nl');
+        
+        $homeupdate = HomeUpdate::first();
+        $testimonials = Testimonial::where('status', 1)->get();
+        $aideals = AiDeal::where('status', 1)->latest()->get();
+        $technologies = Technology::where('status', 1)->latest()->get();
+        $faqs = Faq::where('status', 1)->latest()->get();
+        $services = Service::where('status', 1)
+            ->where('type', '!=', 'ai-development')
+            ->orderBy('order_by', 'asc')
+            ->get();
+        $aidevelopment_services = Service::where('type', 'ai-development')->where('status', 1)->latest()->take(3)->get();
+
+        $portfolio = Portfolio::with(['images', 'services', 'technologies'])->orderBy('id', 'desc')->take(6)->get();
+        $stat = stat::first();
+        $actionData = action::first();
+        $banner = banner::first();
+        $formLabels = LandingFormLabel::first();
+        
+        return view('web.landing', compact(
+            'homeupdate', 
+            'testimonials', 
+            'aideals', 
+            'technologies', 
+            'faqs', 
+            'portfolio', 
+            'services',
+            'aidevelopment_services',
+            'stat',
+            'actionData',
+            'banner',
+            'formLabels',
+            'landingPage',
+            'service',
+            'locale'
+        ));
     }
     
 

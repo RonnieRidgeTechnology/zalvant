@@ -1405,6 +1405,10 @@
                     <i class="fa-light fa-clone"></i>
                     <span>Why Choose Us</span>
                 </a>
+                <a href="{{ route('landing-pages.index') }}" class="nav-link">
+                    <i class="fa-light fa-clone"></i>
+                    <span>Landing Pages</span>
+                </a>
                 <a href="{{ route('new-technology.index') }}" class="nav-link">
                     <i class="fa-light fa-circle-plus"></i>
                     <span>Add Technology</span>
