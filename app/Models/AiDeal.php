@@ -11,7 +11,6 @@ class AiDeal extends Model
         'name',
         'desc',
         'image',
-        
         'status',
         // English translations
         'name_en',
