@@ -1,0 +1,27 @@
+User-agent: *
+
+# Block authentication & account related routes
+Disallow: /login
+Disallow: /signup
+Disallow: /register
+Disallow: /forgot-password
+Disallow: /reset-password
+Disallow: /account
+Disallow: /dashboard
+Disallow: /profile
+Disallow: /settings
+
+# Block Laravel system directories (if public, just in case)
+Disallow: /storage/
+Disallow: /vendor/
+Disallow: /node_modules/
+
+# Allow public assets for rendering
+Allow: /assets/
+Allow: /images/
+Allow: /css/
+Allow: /js/
+Allow: /fonts/
+
+# Sitemap reference
+Sitemap: https://zalvant.com/sitemap.xml

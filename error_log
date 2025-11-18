@@ -1,0 +1,2 @@
+[01-Nov-2025 07:33:08 UTC] PHP Fatal error:  Allowed memory size of 134217728 bytes exhausted (tried to allocate 4096 bytes) in /home/zalvant/public_html/vendor/psy/psysh/src/ExecutionLoop/ProcessForker.php on line 328
+[01-Nov-2025 07:33:08 UTC] PHP Fatal error:  Allowed memory size of 134217728 bytes exhausted (tried to allocate 65536 bytes) in /home/zalvant/public_html/vendor/composer/ClassLoader.php on line 576

@@ -1,0 +1,654 @@
+@media only screen and (max-width: 1440px) {
+    .aboutbannerright img {
+        width: 51% !important;
+    }
+
+    .circel1 {
+       left: 16% !important;
+       top: -49px !important;
+    }
+
+    .circel4 {
+        left: 9% !important;
+        top: -86px;
+    }
+}
+
+@media only screen and (max-width: 1100px) {
+    .brand-identity-container {
+        flex-wrap: wrap;
+        gap: 24px;
+        padding: 40px 10px 20px 10px;
+    }
+
+    .brand-identity-card {
+        width: 45%;
+        min-width: 180px;dealContainersBgImage
+        max-width: 100%;
+    }
+
+    .results-columns {
+        flex-direction: column;
+        gap: 32px;
+    }
+
+    .results-col {
+        width: 100%;
+        border-right: none !important;
+        padding: 0 !important;
+    }
+}
+
+@media only screen and (max-width: 1024px) {
+    .border-line {
+        width: 1004px;
+        height: 491px;
+    }
+
+
+    .work-flow {
+        position: static !important;
+    }
+
+    .service-container .service-cards-wrapper {
+        width: 57%;
+    }
+
+    .service-container .ai-header {
+        width: 39%;
+    }
+
+    .generative-ai {
+        padding: 50px 36px 124px;
+    }
+
+    .project-cards-wrapper .card-text-area {
+        width: 36%;
+    }
+
+    .project-big-card .project-img {
+        width: 56%;
+    }
+
+    .footer-links {
+        gap: 42px;
+    }
+
+    .footer-bottom {
+        flex-direction: column;
+    }
+
+    .footer-bottom .social-icons {
+        padding: 15px 0px;
+    }
+
+    .footer-bottom {
+        padding: 30px 40px;
+    }
+
+    .border-line {
+        width: 749px;
+    }
+}
+
+
+@media only screen and (max-width: 820px) {
+    .banner-images {
+        display: none;
+    }
+
+    .blogtext h1 {
+        font-size: 18px;
+    }
+
+    .blogcardd {
+        padding: 15px !important;
+    }
+
+    .blogright {
+        width: 100% !important;
+    }
+
+    .blogleft {
+        width: 100% !important;
+    }
+
+    .mainBlog {
+        display: block !important;
+    }
+
+    .aboutbannerright {
+        display: none !important;
+    }
+
+    .banner-text {
+        width: 100% !important;
+        margin-bottom: 50px;
+    }
+
+    .banner-images {
+        width: 91% !important;
+    }
+
+    .service-banner {
+        display: block !important;
+    }
+
+    .project-img {
+        margin-top: 50px;
+    }
+
+    .project-cards-wrapper .project-big-card {
+                height: fit-content;
+    }
+
+    .project-big-card .project-img {
+        width: 100%;
+    }
+
+    .project-cards-wrapper .card-text-area {
+        width: 100%;
+    }
+
+    .generative-ai {
+        display: none;
+    }
+
+    .text-area {
+        padding: 30px 0px 0px 0px;
+    }
+
+    .dealContainersBgImage img {
+        height: 100%;
+    }
+
+    .aiservicescards {
+        width: 100%;
+        margin-bottom: 20px;
+    }
+
+    .work-flow {
+        width: 87%;
+        margin: auto;
+        flex-wrap: wrap;
+        justify-content: start;
+    }
+
+    .about-cards-container .about-card {
+        width: 100% !important;
+        color: white;
+        border-radius: 12px;
+        margin-bottom: 20px;
+    }
+
+    .aiservicesAll {
+        display: block !important;
+    }
+
+    .iconcards {
+        width: 20%;
+    }
+
+    .iconcardscontainer {
+        width: 89%;
+        margin: 40px auto;
+        flex-wrap: wrap;
+        justify-content: left;
+    }
+
+    .bannermainimages {
+        display: none;
+    }
+
+    .logoM {
+        display: none;
+    }
+
+    .brand-identity-container {
+        flex-direction: column;
+        align-items: center;
+        padding: 24px 4vw;
+        gap: 18px;
+    }
+
+    .brand-identity-card {
+        width: 100%;
+        min-width: 0;
+        padding: 28px 12px 24px 12px;
+    }
+
+    header {
+        padding: 10px 0px;
+    }
+
+    .nav-menu {
+        display: none;
+    }
+
+    .header-btn {
+        display: flex;
+        align-items: center;
+        margin-left: auto;
+    }
+
+    .header-btn .language-menu {
+        display: block;
+    }
+
+    .header-btn .mobile-consl {
+        display: none;
+    }
+
+    .Mobile-headers {
+        display: flex !important;
+    }
+
+
+    .banner-services .work-flow {
+        gap: 15px 55px;
+        flex-wrap: wrap;
+        padding: 0px 44px;
+    }
+
+    .service-container .service-cards-wrapper {
+        width: 100%;
+    }
+
+    .service-container .ai-header {
+        width: 100%;
+    }
+
+    .ai-header {
+        padding-bottom: 40px;
+    }
+
+    .service-container {
+        padding: 80px 40px;
+    }
+
+    .service-cards-wrapper .service-card {
+        position: relative !important;
+    }
+
+    .service-container .ai-header {
+        position: relative;
+    }
+
+    .proven-track {
+        display: block;
+    }
+
+    .text-area {
+        width: 100%;
+    }
+
+    .carousel-container {
+        width: 100%;
+    }
+
+    .proven-track .text-area .line-img {
+        display: none;
+    }
+
+    .technologies .technologies-wrapper .tech-row {
+        gap: 20px 42px;
+    }
+    .service-bannerrs2{
+        display: none !important;
+    }
+}
+
+
+@media only screen and (max-width: 540px) {
+    .zalvant-form-image-side{
+        display: none !important;
+    }
+    .titlecustonC {
+    font-size: 23px !important;
+}
+    .zalvant-form-image-overlay h2 {
+    font-size: 1.1rem !important;
+}
+    .sectiontestss p{
+        padding-bottom: 10px !important;
+    }
+    .dealContainersBgImage{
+        display: none;
+    }
+    .aiservicesAll {
+    width: 81% !important;
+    margin: 0px 0px 0px 20px !important;
+}
+    .descriptiodealContainers {
+    width: 94% !important;
+}
+    .ourJourneycontainer2 {
+    width: 81%;
+}
+    .ourJourneycontainer {
+    padding: 40px 14px 40px 11px !important;
+}
+    .card-text-area{
+        padding: 0px !important;
+    }
+    .descriptiodealContainers h1 {
+    font-size: 22px !important;
+}
+    .footer .ai-header h1 {
+    font-size: 20px !important;
+}
+    .project-big-card .project-img {
+    height: 280px !important;
+}
+    .choosing-us .ai-header, .recent-work .ai-header, .technologies .ai-header, .real-stories .ai-header {
+    width: 93% !important;
+}
+    .real-stories {
+    padding: 0px 0px !important;
+}
+    .banner-btns {
+    flex-direction: column !important;
+}
+    .mobile-consl{
+        display: none !important;
+    }
+    html,
+    body{
+        overflow-x: hidden !important;
+    }
+    .footer-logo{
+        width: 120px;
+    }
+    .contact-form .ai-header h1{ 
+        font-size: 20px;
+    }
+    .contact-banner .banner-header {
+    padding: 27px 14px !important;
+}
+    .body-contect3 {
+    top: 7px;
+}
+    .banner-title{
+        font-size: 24px;
+    }
+    .tech-grid {
+    grid-template-columns: repeat(2, 1fr);
+}
+    .cta-section{
+        display: block;
+    }
+    .hero-title {
+    font-size: 1.5rem;
+    line-height: 1.6;
+}
+    .faq-section .faq-head .faq-heading {
+    font-size: 28px;
+}
+    .faqque {
+    width: 100%;
+}
+    .project-cards-wrapper .card-text-area {
+    height: fit-content;
+}
+        .border-line {
+        width: 100%;
+    }
+    .border-line2 {
+    width: 100%;
+}
+    .border-line3 {
+    width: 100%;
+}
+    .banner-services .work-flow {
+    padding: 0px 30px;
+}
+    .service-row {
+        display: block !important;
+    }
+    .allfaq {
+        width: 100% !important;
+        margin-top: 50px !important;
+    }
+
+    .faqtext {
+        width: 100% !important;
+    }
+
+    .faq-main {
+        display: block !important;
+    }
+
+    .under-customweb-main2 {
+        display: block !important;
+    }
+
+    .left-customwebImage {
+        width: 100% !important;
+    }
+
+    .left-customwebText {
+        width: 100% !important;
+    }
+
+    .under-customweb-main {
+        display: block !important;
+    }
+
+    .content-wrapper {
+        grid-template-columns: 1fr !important;
+    }
+
+    .technologycards {
+        width: 27% !important;
+    }
+
+    .blog-card-main2 {
+        width: 100% !important;
+    }
+
+    .bannerText h1 {
+        font-size: 22px;
+    }
+
+    .offringai3sss {
+        margin-top: -42px;
+    }
+
+    .whyChooseuscards {
+        width: 84% !important;
+    }
+
+    .ourJourneycontainer2 {
+        padding: 0px 30px !important;
+    }
+
+    .corecardss {
+        width: 82% !important;
+        margin-bottom: 30px !important;
+    }
+
+    .corecardcontainer {
+        display: block !important;
+    }
+
+    .toptext p {
+        font-size: 13px;
+    }
+
+    .toptext h1 {
+        font-size: 25px;
+    }
+
+    .ourJourneyright {
+        width: 94% !important;
+        margin-top: 30px !important;
+    }
+
+    .ourJourneyLeft {
+        width: 100% !important;
+    }
+
+    .ourJourney {
+        height: 100%;
+    }
+
+    .ourJourneycontainer {
+        display: block !important;
+    }
+
+    .service-banner2 {
+        padding: 0px 23px !important;
+    }
+
+    .banner-text {
+        padding: 0px 20px 20px 8px;
+    }
+
+    .banner-images {
+        width: 96% !important;
+    }
+
+    .service-banner {
+        padding: 0px !important;
+    }
+
+
+
+    .customAccordion-content.active {
+        width: 100%;
+    }
+
+    .footer {
+        padding: 80px 20px !important;
+    }
+
+    .ai-section-text {
+        text-align: center !important;
+    }
+
+    footer {
+        padding: 0 !important;
+    }
+
+    .contact-form .input-row .field {
+        margin-bottom: 30px;
+    }
+
+    .contact-form .input-row {
+        display: block;
+    }
+
+    .contact-form {
+        margin: 20px;
+    }
+
+    .contact-container {
+        display: block;
+        padding: 0 74px 0px 30px;
+    }
+
+    .contact-container .contact-card {
+        width: 100%;
+        margin-bottom: 30px;
+    }
+
+    .ellipse236 img {
+        width: 100%;
+    }
+
+    .dealContainersBgImage img {
+        width: 100%;
+    }
+
+    .banner-header .banner-title {
+        font-size: 22px;
+        padding-top: 20px;
+    }
+
+    .iconcards {
+        width: 33%;
+    }
+
+    .banner-header {
+        padding: 30px !important;
+    }
+
+    .about-section {
+        display: block !important;
+        padding: 40px 40px 40px 40px !important;
+    }
+
+    .about-section .description {
+        margin-bottom: 30px;
+        width: 100% !important;
+        position: relative !important;
+    }
+
+    .about-section .about-cards-container {
+        width: 100% !important;
+    }
+
+    .ai-section-heading {
+        font-size: 22px;
+    }
+
+    .aiservicescards {
+        width: 92% !important;
+        margin-bottom: 20px;
+    }
+
+    .recent-work {
+        padding: 0px 30px;
+    }
+
+    .footer .links-container {
+        width: 43% !important;
+    }
+
+    .footer .links-container:nth-child(3) {
+        width: 39%;
+    }
+
+    .footer .links-container:nth-child(4) {
+        width: 45%;
+    }
+
+    .footer .links-container:nth-child(5) {
+        width: 34%;
+    }
+
+    .customAccordion-item {
+        width: 100%;
+    }
+
+    .customAccordion {
+        width: 100%;
+    }
+
+    .faq-section .faq-head {
+        width: 100%;
+    }
+
+    .customAccordion {
+        padding: 0px;
+    }
+
+    .faq-section {
+        padding: 30px 72px 30px 30px;
+    }
+}
+
+@media only screen and (max-width: 430px) {
+    .sectiontestss h1 {
+    font-size: 24px !important;
+}
+    .banner-header .banner-title {
+    font-size: 20px !important;
+}
+    .toptext h1 {
+        font-size: 18px !important;
+    }
+    .technologycards {
+        width: 42% !important;
+    }
+}
