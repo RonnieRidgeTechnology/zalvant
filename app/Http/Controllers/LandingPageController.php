@@ -6,6 +6,7 @@ use App\Models\LandingPage;
 use App\Models\Service;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 
 class LandingPageController extends Controller
 {
@@ -16,17 +17,21 @@ class LandingPageController extends Controller
         $search = trim($request->query('search', ''));
         $serviceId = $request->query('service_id');
 
-        $landingPages = LandingPage::query()
+        $landingPages = LandingPage::with('services')
             ->when($search, function ($query) use ($search) {
                 $query->where(function ($inner) use ($search) {
                     $inner->where('header_title', 'like', "%{$search}%")
                         ->orWhere('header_title_en', 'like', "%{$search}%")
                         ->orWhere('header_title_fr', 'like', "%{$search}%")
-                        ->orWhere('header_title_de', 'like', "%{$search}%");
+                        ->orWhere('header_title_de', 'like', "%{$search}%")
+                        ->orWhere('type', 'like', "%{$search}%")
+                        ->orWhere('slug', 'like', "%{$search}%");
                 });
             })
             ->when($serviceId, function ($query) use ($serviceId) {
-                $query->where('service_id', $serviceId);
+                $query->whereHas('services', function ($q) use ($serviceId) {
+                    $q->where('services.id', $serviceId);
+                });
             })
             ->latest()
             ->paginate(10)
@@ -54,6 +59,11 @@ class LandingPageController extends Controller
     {
         $data = $this->validateData($request);
 
+        // Generate slug from type if not provided
+        if (empty($data['slug']) && !empty($data['type'])) {
+            $data['slug'] = Str::slug($data['type']);
+        }
+
         if ($request->hasFile('file')) {
             $file = $request->file('file');
             $filename = uniqid('landing_', true) . '.' . $file->getClientOriginalExtension();
@@ -63,7 +73,11 @@ class LandingPageController extends Controller
 
         $data['feature_blocks'] = $this->transformFeatures($request);
 
-        LandingPage::create($data);
+        $serviceIds = $request->input('service_ids', []);
+        unset($data['service_ids']);
+
+        $landingPage = LandingPage::create($data);
+        $landingPage->services()->sync($serviceIds);
 
         return redirect()
             ->route('landing-pages.index')
@@ -73,6 +87,7 @@ class LandingPageController extends Controller
     public function edit(LandingPage $landingPage)
     {
         $services = Service::where('status', 1)->orderBy('name')->get();
+        $landingPage->load('services');
 
         return view('Admin.landing_pages.form', [
             'landingPage' => $landingPage,
@@ -85,11 +100,16 @@ class LandingPageController extends Controller
 
     public function update(Request $request, LandingPage $landingPage)
     {
-        $data = $this->validateData($request, true);
+        $data = $this->validateData($request, true, $landingPage);
+
+        // Generate slug from type if not provided
+        if (empty($data['slug']) && !empty($data['type'])) {
+            $data['slug'] = Str::slug($data['type']);
+        }
 
         if ($request->hasFile('file')) {
-            if ($landingPage->file && Storage::disk('public')->exists($landingPage->file)) {
-                Storage::disk('public')->delete($landingPage->file);
+            if ($landingPage->file && file_exists(public_path($landingPage->file))) {
+                unlink(public_path($landingPage->file));
             }
             $file = $request->file('file');
             $filename = uniqid('landing_', true) . '.' . $file->getClientOriginalExtension();
@@ -99,7 +119,11 @@ class LandingPageController extends Controller
 
         $data['feature_blocks'] = $this->transformFeatures($request, $landingPage);
 
+        $serviceIds = $request->input('service_ids', []);
+        unset($data['service_ids']);
+
         $landingPage->update($data);
+        $landingPage->services()->sync($serviceIds);
 
         return redirect()
             ->route('landing-pages.index')
@@ -120,10 +144,15 @@ class LandingPageController extends Controller
             ->with('success', 'Landing page removed.');
     }
 
-    private function validateData(Request $request, bool $isUpdate = false): array
+    private function validateData(Request $request, bool $isUpdate = false, ?LandingPage $landingPage = null): array
     {
+        $landingPageId = $landingPage ? $landingPage->id : null;
+        
         $baseRules = [
-            'service_id' => ['required', 'integer', 'exists:services,id'],
+            'type' => ['required', 'string', 'max:255', 'unique:landing_pages,type,' . $landingPageId],
+            'slug' => ['nullable', 'string', 'max:255', 'unique:landing_pages,slug,' . $landingPageId],
+            'service_ids' => ['required', 'array', 'min:1'],
+            'service_ids.*' => ['required', 'integer', 'exists:services,id'],
             'header_title' => ['required', 'string', 'max:255'],
             'header_desc' => ['required', 'string'],
             'second_title' => ['nullable', 'string', 'max:255'],

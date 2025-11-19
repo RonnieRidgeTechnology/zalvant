@@ -312,10 +312,10 @@
                     <thead>
                         <tr>
                             <th>#</th>
-                            <th>Service</th>
+                            <th>Type</th>
+                            <th>Slug</th>
+                            <th>Services</th>
                             <th>Header Title</th>
-                            <th>Second Title</th>
-                            <th>Third Title</th>
                             <th>Features</th>
                             <th>Updated</th>
                             <th>Action</th>
@@ -326,20 +326,33 @@
                             <tr>
                                 <td>{{ $landingPages->firstItem() + $index }}</td>
                                 <td>
-                                    @php
-                                        $service = $services->firstWhere('id', $page->service_id);
-                                    @endphp
-                                    <span class="badge badge-service">
-                                        {{ $service ? $service->name : 'N/A' }}
-                                    </span>
+                                    <strong style="color: #1f2937;">
+                                        {{ $page->type ?? '—' }}
+                                    </strong>
+                                </td>
+                                <td>
+                                    <code style="background: #f3f4f6; padding: 4px 8px; border-radius: 4px; font-size: 0.85rem; color: #6b7280;">
+                                        {{ $page->slug ?? '—' }}
+                                    </code>
+                                </td>
+                                <td>
+                                    @if($page->services && $page->services->count() > 0)
+                                        <div style="display: flex; flex-wrap: wrap; gap: 6px;">
+                                            @foreach($page->services as $service)
+                                                <span class="badge badge-service">
+                                                    {{ $service->name }}
+                                                </span>
+                                            @endforeach
+                                        </div>
+                                    @else
+                                        <span style="color: #9ca3af;">No services</span>
+                                    @endif
                                 </td>
                                 <td>
                                     <strong style="color: #1f2937;">
                                         {{ $page->header_title ? Str::limit($page->header_title, 45) : '—' }}
                                     </strong>
                                 </td>
-                                <td>{{ $page->second_title ? Str::limit($page->second_title, 45) : '—' }}</td>
-                                <td>{{ $page->third_title ? Str::limit($page->third_title, 45) : '—' }}</td>
                                 <td>
                                     <span class="badge badge-feature">
                                         <i class="fa fa-list" style="margin-right:4px;"></i>

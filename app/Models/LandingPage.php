@@ -7,7 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 class LandingPage extends Model
 {
     protected $fillable = [
-        'service_id',
+        'type',
+        'slug',
         // Section 1
         'header_title',
         'header_title_en',
@@ -75,6 +76,14 @@ class LandingPage extends Model
                 'desc' => data_get($feature, "desc.{$locale}") ?? data_get($feature, 'desc.nl'),
             ];
         })->toArray();
+    }
+
+    /**
+     * Many-to-many relationship with services
+     */
+    public function services()
+    {
+        return $this->belongsToMany(Service::class, 'landing_page_service', 'landing_page_id', 'service_id');
     }
 }
 

@@ -71,15 +71,12 @@ class BasicController extends Controller
 
     public function landingPageByService($slug)
     {
-        // Find service by slug
-        $service = Service::where('slug', $slug)->where('status', 1)->firstOrFail();
+        // Find landing page by its slug
+        $landingPage = LandingPage::where('slug', $slug)->with('services')->first();
         
-        // Find landing page associated with this service
-        $landingPage = LandingPage::where('service_id', $service->id)->first();
-        
-        // If no landing page found, redirect to 404 or default landing page
+        // If no landing page found, redirect to 404
         if (!$landingPage) {
-            abort(404, 'Landing page not found for this service.');
+            abort(404, 'Landing page not found.');
         }
 
         // Get current locale from cookie or default to 'nl'
@@ -96,13 +93,24 @@ class BasicController extends Controller
             ->get();
         $aidevelopment_services = Service::where('type', 'ai-development')->where('status', 1)->latest()->take(3)->get();
 
-        $portfolio = Portfolio::with(['images', 'services', 'technologies'])->orderBy('id', 'desc')->take(6)->get();
+        // Get service IDs from landing page
+        $landingPageServiceIds = $landingPage->services->pluck('id')->toArray();
+        
+        // Filter portfolios that are associated with any of the landing page's services
+        $portfolio = Portfolio::with(['images', 'services', 'technologies'])
+            ->whereHas('services', function ($query) use ($landingPageServiceIds) {
+                $query->whereIn('services.id', $landingPageServiceIds);
+            })
+            ->orderBy('id', 'desc')
+            ->take(6)
+            ->get();
+        
         $stat = stat::first();
         $actionData = action::first();
         $banner = banner::first();
         $formLabels = LandingFormLabel::first();
         
-        return view('web.landing', compact(
+        return view('web.landing_pages', compact(
             'homeupdate', 
             'testimonials', 
             'aideals', 
@@ -116,7 +124,6 @@ class BasicController extends Controller
             'banner',
             'formLabels',
             'landingPage',
-            'service',
             'locale'
         ));
     }
