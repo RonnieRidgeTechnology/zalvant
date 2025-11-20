@@ -93,10 +93,8 @@ class BasicController extends Controller
             ->get();
         $aidevelopment_services = Service::where('type', 'ai-development')->where('status', 1)->latest()->take(3)->get();
 
-        // Get service IDs from landing page
         $landingPageServiceIds = $landingPage->services->pluck('id')->toArray();
         
-        // Filter portfolios that are associated with any of the landing page's services
         $portfolio = Portfolio::with(['images', 'services', 'technologies'])
             ->whereHas('services', function ($query) use ($landingPageServiceIds) {
                 $query->whereIn('services.id', $landingPageServiceIds);

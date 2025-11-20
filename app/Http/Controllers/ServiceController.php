@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\LandingType;
 use App\Models\Service;
 use App\Models\ServiceTechnology;
 use App\Models\Technology;
@@ -14,7 +15,8 @@ class ServiceController extends Controller
     {
         $services = Service::with('serviceTechnologies.technology')->paginate(10);
         $technologies = Technology::all();
-        return view('Admin.service.index', compact('services', 'technologies'));
+        $types = LandingType::all();
+        return view('Admin.service.index', compact('services', 'technologies', 'types'));
     }
 
     public function store(Request $request)

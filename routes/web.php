@@ -9,6 +9,7 @@ use App\Http\Controllers\BlogCategoryController;
 use App\Http\Controllers\BlogController;
 use App\Http\Controllers\LandingFormLabelController;
 use App\Http\Controllers\LandingPageController;
+use App\Http\Controllers\LandingTypeController;
 use App\Http\Controllers\BlogUpdateController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\ContactUpdateController;
@@ -185,6 +186,10 @@ Route::get('/blogs/{id}/edit', [BlogController::class, 'edit'])->name('blogs.edi
     Route::get('/landing-list', [LandingController::class, 'landinglist'])->name('landing.index');
     Route::delete('/landing-delete/{id}', [LandingController::class, 'landingdelete'])->name('landing.delete');
     Route::get('/landing/search', [LandingController::class, 'landingSearch'])->name('landing.search');
+    // Landing Types
+    Route::patch('landing-types/{landingType}/toggle-status', [LandingTypeController::class, 'toggleStatus'])->name('landing-types.toggle-status');
+    Route::resource('landing-types', LandingTypeController::class)->except(['show']);
+    
     // Landing pages CRUD
     Route::resource('landing-pages', LandingPageController::class)->except(['show']);
     Route::get('actions', [ActionController::class, 'index'])->name('actions.index');

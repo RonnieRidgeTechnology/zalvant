@@ -745,12 +745,9 @@
                                 <label for="type">Service Type <span class="required">*</span></label>
                                 <select name="type" id="type" class="form-control" required>
                                     <option value="">Select Type</option>
-                                    <option value="service">Service</option>
-                                    <option value="api-solution">API Solution</option>
-                                    <option value="mobile-development">Mobile Development</option>
-                                    <option value="graphic-designing">Graphic Design</option>
-                                    <option value="digital-marketing">Digital Marketing</option>
-                                    <option value="ai-development">AI Development</option>
+                                    @foreach ($types as $type)
+                                        <option value="{{ $type->id }}">{{ $type->name }}</option>
+                                    @endforeach
                                 </select>
                             </div>
 
