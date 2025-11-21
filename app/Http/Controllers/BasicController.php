@@ -262,9 +262,9 @@ class BasicController extends Controller
         $portfolios = \App\Models\Portfolio::whereHas('services', function($q) use ($serviceIds) {
             $q->whereIn('services.id', $serviceIds);
         })->get();
-        
+        $formLabels = LandingFormLabel::first();
 
-        return view('web.landing_service_type', compact('servicesupdate', 'technologies', 'aideals', 'services', 'landingTypes', 'portfolios'));
+        return view('web.landing_service_type', compact('servicesupdate', 'technologies', 'aideals', 'services', 'landingTypes', 'portfolios','formLabels'));
     }
 
     public function landingServicePage($slug)
