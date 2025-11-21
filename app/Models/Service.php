@@ -26,6 +26,7 @@ class Service extends Model
         'meta_keywords',
         'hover_icon',
         'type',
+        'landing_type_id',
         'portfolio_title',
         'portfolio_description',
         'status',
@@ -71,6 +72,11 @@ class Service extends Model
     public function appointments()
     {
         return $this->belongsToMany(Appointment::class, 'appointment_service', 'service_id', 'appointment_id');
+    }
+    
+    public function landingType()
+    {
+        return $this->belongsTo(LandingType::class, 'landing_type_id');
     }
 
     /**

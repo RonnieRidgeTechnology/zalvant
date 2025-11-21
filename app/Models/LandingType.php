@@ -51,5 +51,31 @@ class LandingType extends Model
 
         return $slug;
     }
+
+    /**
+     * Get localized name
+     */
+    public function getLocalizedName($locale = null)
+    {
+        $locale = $locale ?? app()->getLocale();
+        $localizedField = $locale === 'nl' ? 'name' : "name_{$locale}";
+        return $this->$localizedField ?? $this->name;
+    }
+
+    /**
+     * Get services associated with this landing type
+     */
+    public function services()
+    {
+        return $this->hasMany(Service::class, 'landing_type_id');
+    }
+
+    /**
+     * Get active services for this landing type
+     */
+    public function getServices()
+    {
+        return $this->services()->where('status', 1)->orderBy('order_by', 'asc')->get();
+    }
 }
 

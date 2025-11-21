@@ -109,7 +109,7 @@
             <div class="under-customweb-main">
                 <div class="left-customwebText">
                     <div class="text-logo" style="width: fit-content;">
-                        <img src="image/Rlogo.png" alt="Rlogo">
+                        <img src="{{ asset('assets/web/images/Rlogo.png') }}" alt="Rlogo">
                         <p> Latest Technology</p>
                     </div>
                     <div class="tectcustoms">
@@ -151,7 +151,7 @@
             <div class="topaiservicrs">
                 <div class="bannerTextMain2">
                     <div class="text-logo">
-                        <img src="image/Rlogo.png" alt="Rlogo">
+                        <img src="{{ asset('assets/web/images/Rlogo.png') }}" alt="Rlogo">
                         <p>Top Services</p>
                     </div>
                     <div class="bannerText">

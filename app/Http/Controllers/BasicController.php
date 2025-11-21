@@ -7,7 +7,7 @@ use App\Models\AiDeal;
 use App\Models\AppointmentUpdate;
 use App\Models\Blog;
 use App\Models\action;
-use App\Models\stat; 
+use App\Models\stat;
 use App\Models\banner;
 use App\Models\BlogCategory;
 use App\Models\BlogUpdate;
@@ -17,6 +17,7 @@ use App\Models\Faq;
 use App\Models\LandingFormLabel;
 use App\Models\LandingPage;
 use App\Models\HomeUpdate;
+use App\Models\LandingType;
 use App\Models\Portfolio;
 use App\Models\PortfolioUpdate;
 use App\Models\PrivacyPolicy;
@@ -45,8 +46,8 @@ class BasicController extends Controller
         $aidevelopment_services = Service::where('type', 'ai-development')->where('status', 1)->latest()->take(3)->get();
 
         $portfolio = Portfolio::with(['images', 'services', 'technologies'])->orderBy('id', 'desc')->get();
-  
-        return view('web.index', compact('homeupdate', 'testimonials', 'aideals', 'technologies', 'faqs', 'portfolio', 'services','aidevelopment_services'));
+
+        return view('web.index', compact('homeupdate', 'testimonials', 'aideals', 'technologies', 'faqs', 'portfolio', 'services', 'aidevelopment_services'));
     }
     public function landingPage()
     {
@@ -66,14 +67,14 @@ class BasicController extends Controller
         $actionData = action::first();
         $banner = banner::first();
         $formLabels = LandingFormLabel::first();
-        return view('web.landing', compact('homeupdate', 'testimonials', 'aideals', 'technologies', 'faqs', 'portfolio', 'services','aidevelopment_services','stat','actionData','banner','formLabels'));
+        return view('web.landing', compact('homeupdate', 'testimonials', 'aideals', 'technologies', 'faqs', 'portfolio', 'services', 'aidevelopment_services', 'stat', 'actionData', 'banner', 'formLabels'));
     }
 
     public function landingPageByService($slug)
     {
         // Find landing page by its slug
         $landingPage = LandingPage::where('slug', $slug)->with('services')->first();
-        
+
         // If no landing page found, redirect to 404
         if (!$landingPage) {
             abort(404, 'Landing page not found.');
@@ -81,7 +82,7 @@ class BasicController extends Controller
 
         // Get current locale from cookie or default to 'nl'
         $locale = request()->cookie('locale', 'nl');
-        
+
         $homeupdate = HomeUpdate::first();
         $testimonials = Testimonial::where('status', 1)->get();
         $aideals = AiDeal::where('status', 1)->latest()->get();
@@ -94,7 +95,7 @@ class BasicController extends Controller
         $aidevelopment_services = Service::where('type', 'ai-development')->where('status', 1)->latest()->take(3)->get();
 
         $landingPageServiceIds = $landingPage->services->pluck('id')->toArray();
-        
+
         $portfolio = Portfolio::with(['images', 'services', 'technologies'])
             ->whereHas('services', function ($query) use ($landingPageServiceIds) {
                 $query->whereIn('services.id', $landingPageServiceIds);
@@ -102,19 +103,19 @@ class BasicController extends Controller
             ->orderBy('id', 'desc')
             ->take(6)
             ->get();
-        
+
         $stat = stat::first();
         $actionData = action::first();
         $banner = banner::first();
         $formLabels = LandingFormLabel::first();
-        
+
         return view('web.landing_pages', compact(
-            'homeupdate', 
-            'testimonials', 
-            'aideals', 
-            'technologies', 
-            'faqs', 
-            'portfolio', 
+            'homeupdate',
+            'testimonials',
+            'aideals',
+            'technologies',
+            'faqs',
+            'portfolio',
             'services',
             'aidevelopment_services',
             'stat',
@@ -125,63 +126,63 @@ class BasicController extends Controller
             'locale'
         ));
     }
-    
 
- 
+
+
     public function sitemap()
-{
-    $urls = [
-        route('home.index'),
-        route('contact-us'),
-        route('about-us'),
-        route('appointment'),
-        route('portfolio'),
-        route('service'),
-        route('blog'),
-        route('privacy'),
-        route('term'),
-    ];
+    {
+        $urls = [
+            route('home.index'),
+            route('contact-us'),
+            route('about-us'),
+            route('appointment'),
+            route('portfolio'),
+            route('service'),
+            route('blog'),
+            route('privacy'),
+            route('term'),
+        ];
 
-    // Add dynamic blog detail pages
-    $blogs = \App\Models\Blog::all();
-    foreach ($blogs as $blog) {
-        $urls[] = route('blog.details', $blog->slug);
+        // Add dynamic blog detail pages
+        $blogs = \App\Models\Blog::all();
+        foreach ($blogs as $blog) {
+            $urls[] = route('blog.details', $blog->slug);
+        }
+
+        // Add dynamic service detail pages
+        $services = \App\Models\Service::all();
+        foreach ($services as $service) {
+            $urls[] = route('service.details', $service->slug);
+        }
+
+        // Add dynamic portfolio detail pages
+        $portfolios = \App\Models\Portfolio::all();
+        foreach ($portfolios as $portfolio) {
+            $urls[] = route('portfolio.details', $portfolio->slug);
+        }
+
+        // XML root
+        $xmlContent = '<?xml version="1.0" encoding="UTF-8"?>' .
+            '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"></urlset>';
+
+        $xml = new \SimpleXMLElement($xmlContent);
+
+        foreach ($urls as $url) {
+            $urlTag = $xml->addChild('url');
+            $urlTag->addChild('loc', htmlspecialchars($url, ENT_QUOTES, 'UTF-8'));
+            $urlTag->addChild('lastmod', now()->toAtomString());
+            $urlTag->addChild('changefreq', 'daily');
+            $urlTag->addChild('priority', '1.0');
+        }
+
+        // Save file in /public/sitemap.xml
+        $filePath = public_path('sitemap.xml');
+        $xml->asXML($filePath);
+
+        // Return XML response
+        return response(file_get_contents($filePath), 200)
+            ->header('Content-Type', 'application/xml');
     }
-
-    // Add dynamic service detail pages
-    $services = \App\Models\Service::all();
-    foreach ($services as $service) {
-        $urls[] = route('service.details', $service->slug);
-    }
-
-    // Add dynamic portfolio detail pages
-    $portfolios = \App\Models\Portfolio::all();
-    foreach ($portfolios as $portfolio) {
-        $urls[] = route('portfolio.details', $portfolio->slug);
-    }
-
-    // XML root
-    $xmlContent = '<?xml version="1.0" encoding="UTF-8"?>' .
-                  '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"></urlset>';
-
-    $xml = new \SimpleXMLElement($xmlContent);
-
-    foreach ($urls as $url) {
-        $urlTag = $xml->addChild('url');
-        $urlTag->addChild('loc', htmlspecialchars($url, ENT_QUOTES, 'UTF-8'));
-        $urlTag->addChild('lastmod', now()->toAtomString());
-        $urlTag->addChild('changefreq', 'daily');
-        $urlTag->addChild('priority', '1.0');
-    }
-
-    // Save file in /public/sitemap.xml
-    $filePath = public_path('sitemap.xml');
-    $xml->asXML($filePath);
-
-    // Return XML response
-    return response(file_get_contents($filePath), 200)
-        ->header('Content-Type', 'application/xml');
-}
 
 
     public function about()
@@ -200,38 +201,90 @@ class BasicController extends Controller
         return view('web.contact', compact('websetting', 'services', 'contactupdate'));
     }
 
-public function services($type = null)
-{
-    $servicesupdate = ServiceUpdate::first();
-    $aideals = AiDeal::where('status', 1)->latest()->get();
-    $technologies = Technology::where('status', 1)->latest()->get();
+    public function services($type = null)
+    {
+        $servicesupdate = ServiceUpdate::first();
+        $aideals = AiDeal::where('status', 1)->latest()->get();
+        $technologies = Technology::where('status', 1)->latest()->get();
 
-    $query = Service::where('status', 1);
+        $query = Service::where('status', 1);
 
-    if ($type) {
-        if ($type == 'web-development') {
-            $query->where('type', 'service')
-                  ->orWhere('type', 'api-solution');
-        } elseif ($type == 'mobile-development') {
-            $query->where('type', 'mobile-development');
-        } elseif ($type == 'graphic-designing') {
-            $query->where('type', 'graphic-designing');
-        } elseif ($type == 'ai-development') {
-            $query->where('type', 'ai-development');
-        }elseif ($type == 'digital-marketing') {
-            $query->where('type', 'digital-marketing');
+        if ($type) {
+            if ($type == 'web-development') {
+                $query->where('type', 'service')
+                    ->orWhere('type', 'api-solution');
+            } elseif ($type == 'mobile-development') {
+                $query->where('type', 'mobile-development');
+            } elseif ($type == 'graphic-designing') {
+                $query->where('type', 'graphic-designing');
+            } elseif ($type == 'ai-development') {
+                $query->where('type', 'ai-development');
+            } elseif ($type == 'digital-marketing') {
+                $query->where('type', 'digital-marketing');
+            }
         }
+
+        $services = $query->latest()->get();
+
+        if ($type == 'dmm-services') {
+            $services = DmmService::all();
+        }
+
+        return view('web.serivce', compact('servicesupdate', 'technologies', 'aideals', 'services'));
     }
 
-    $services = $query->latest()->get();
 
-    if ($type == 'dmm-services') {
-        $services = DmmService::all();
+    public function landingTypePage($type)
+    {
+        $servicesupdate = ServiceUpdate::first();
+        $aideals = AiDeal::where('status', 1)->latest()->get();
+        // $technologies = Technology::where('status', 1)->latest()->get();
+
+        // Get all active LandingTypes with their services
+        $landingTypes = LandingType::where('status', 1)
+            ->orderBy('order', 'asc')
+            ->get()
+            ->map(function ($landingType) {
+                $landingType->services_list = $landingType->getServices();
+                return $landingType;
+            });
+
+        $serviceType = LandingType::with('services.portfolios')->where('slug', $type)->first();
+        $services = $serviceType->services;
+
+        $serviceIds = $services->pluck('id')->toArray();
+
+        // Fetch all technologies assigned via pivot service_technologies table for these services
+        $technologies = \App\Models\Technology::whereHas('services', function($q) use ($serviceIds) {
+            $q->whereIn('services.id', $serviceIds);
+        })->get();
+
+        $portfolios = \App\Models\Portfolio::whereHas('services', function($q) use ($serviceIds) {
+            $q->whereIn('services.id', $serviceIds);
+        })->get();
+        
+
+        return view('web.landing_service_type', compact('servicesupdate', 'technologies', 'aideals', 'services', 'landingTypes', 'portfolios'));
     }
 
-    return view('web.serivce', compact('servicesupdate', 'technologies', 'aideals', 'services'));
-}
+    public function landingServicePage($slug)
+    {
 
+        $homeupdate = HomeUpdate::first();
+        $service = Service::with(['technologies', 'portfolios'])->where('slug', $slug)->firstOrFail();
+        $faqs = Faq::where('status', 1)->latest()->get();
+
+        // Get all active LandingTypes with their services
+        $landingTypes = LandingType::where('status', 1)
+            ->orderBy('order', 'asc')
+            ->get()
+            ->map(function ($landingType) {
+                $landingType->services_list = $landingType->getServices();
+                return $landingType;
+            });
+
+        return view('web.landing_service', compact('service', 'faqs', 'homeupdate', 'landingTypes'));
+    }
     public function serviceDetails($slug)
     {
 
@@ -316,7 +369,7 @@ public function services($type = null)
     {
         $portfolio = Portfolio::with(['images', 'services', 'technologies'])->where('slug', $slug)->firstOrFail();
         $banner = banner::first();
-        return view('web.portfoliodetail', compact('portfolio','banner'));
+        return view('web.portfoliodetail', compact('portfolio', 'banner'));
     }
 
     public function privacy()
@@ -334,20 +387,20 @@ public function services($type = null)
     {
         // Get available languages from database
         $websetting = Websetting::first();
-        $availableLanguages = $websetting && $websetting->available_languages 
+        $availableLanguages = $websetting && $websetting->available_languages
             ? array_map('trim', explode(',', $websetting->available_languages))
             : ['nl', 'en', 'fr', 'de'];
-        
+
         // Ensure Dutch is always available (failsafe)
         if (!in_array('nl', $availableLanguages)) {
             $availableLanguages[] = 'nl';
         }
-        
+
         // Validate locale against available languages
         if (!in_array($locale, $availableLanguages)) {
             $locale = 'nl'; // Default to Dutch if requested language is not available
         }
-        
+
         // Set cookie for 1 year
         return redirect()->back()->cookie('locale', $locale, 525600);
     }

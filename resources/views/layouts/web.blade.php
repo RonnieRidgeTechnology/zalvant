@@ -6,27 +6,41 @@ $webset = \App\Models\Websetting::first();
 
 <head>
     <!-- Google Tag Manager -->
-<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-})(window,document,'script','dataLayer','GTM-WTHWG57X');</script>
-<!-- End Google Tag Manager -->
+    <script>
+        (function(w, d, s, l, i) {
+            w[l] = w[l] || [];
+            w[l].push({
+                'gtm.start': new Date().getTime(),
+                event: 'gtm.js'
+            });
+            var f = d.getElementsByTagName(s)[0],
+                j = d.createElement(s),
+                dl = l != 'dataLayer' ? '&l=' + l : '';
+            j.async = true;
+            j.src =
+                'https://www.googletagmanager.com/gtm.js?id=' + i + dl;
+            f.parentNode.insertBefore(j, f);
+        })(window, document, 'script', 'dataLayer', 'GTM-WTHWG57X');
+    </script>
+    <!-- End Google Tag Manager -->
 
-<!-- Google Tag Manager (noscript) -->
-<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WTHWG57X"
-height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-<!-- End Google Tag Manager�(noscript)�-->
+    <!-- Google Tag Manager (noscript) -->
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WTHWG57X"
+            height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <!-- End Google Tag Manager�(noscript)�-->
 
-<!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-PCMTW05KW6"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-PCMTW05KW6"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
 
-  gtag('config', 'G-PCMTW05KW6');
-</script>
+        function gtag() {
+            dataLayer.push(arguments);
+        }
+        gtag('js', new Date());
+
+        gtag('config', 'G-PCMTW05KW6');
+    </script>
 
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -44,7 +58,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <meta property="og:description"
         content="@yield('meta_desc', '-')">
     <meta property="og:url" content="{{ url()->current() }}">
-<meta property="og:image" content="{{ $webset->og_image ? asset($webset->og_image) : asset('images/Mask group.png') }}">
+    <meta property="og:image" content="{{ $webset->og_image ? asset($webset->og_image) : asset('images/Mask group.png') }}">
 
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:site" content="@Zalvant">
@@ -54,18 +68,23 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <meta name="twitter:image" content="{{ $metaImage ?? asset('images/Mask group.png') }}">
     <link rel="canonical" href="{{ url()->current() }}">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    
-    
-    <script type="text/javascript">
-    (function(c,l,a,r,i,t,y){
-        c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
-        t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
-        y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
-    })(window, document, "clarity", "script", "u1u6ztdbzw");
-</script>
 
-    
-    
+
+    <script type="text/javascript">
+        (function(c, l, a, r, i, t, y) {
+            c[a] = c[a] || function() {
+                (c[a].q = c[a].q || []).push(arguments)
+            };
+            t = l.createElement(r);
+            t.async = 1;
+            t.src = "https://www.clarity.ms/tag/" + i;
+            y = l.getElementsByTagName(r)[0];
+            y.parentNode.insertBefore(t, y);
+        })(window, document, "clarity", "script", "u1u6ztdbzw");
+    </script>
+
+
+
     <style>
         .toast {
             position: fixed;
@@ -131,11 +150,11 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         .language-menu {
             position: relative;
         }
-        
+
         .language-trigger:hover {
             background: rgba(41, 80, 177, 0.1);
         }
-        
+
         .language-dropdown {
             display: none;
             position: absolute;
@@ -151,17 +170,17 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             transform: translateY(-10px);
             transition: opacity 0.2s ease, transform 0.2s ease;
         }
-        
+
         .language-dropdown.show {
             display: block;
             opacity: 1;
             transform: translateY(0);
         }
-        
+
         .language-dropdown li {
             list-style: none;
         }
-        
+
         .language-dropdown li a {
             display: block;
             padding: 10px 16px;
@@ -170,44 +189,46 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             transition: background 0.2s;
             font-size: 14px;
         }
-        
+
         .language-dropdown li a:hover {
             background: #f5f5f5;
         }
-        
+
         .language-dropdown li a.active {
             background: #2950B1;
             color: white;
             font-weight: 600;
         }
-        
+
         .chevron-icon {
             transition: transform 0.2s ease;
         }
-        
+
         .language-menu.active .chevron-icon {
             transform: rotate(180deg);
         }
-        
+
         /* Mobile Language Switcher */
         .mobile-language-switcher a.active-lang {
             color: #2950B1 !important;
             font-weight: 600;
         }
-        
+
         /* Hide desktop language menu on mobile */
         @media (max-width: 1024px) {
             .header-btn {
                 gap: 10px;
             }
+
             .header-btn .language-menu {
                 display: block;
             }
+
             .language-menu {
                 margin-left: 0;
             }
         }
-        
+
         .technologies-wrapper {
             overflow: hidden;
             position: relative;
@@ -252,85 +273,106 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         .tech-card {
             flex-shrink: 0;
         }
-        
-         .wh-btn {
-    position: fixed;
-    right: 20px;
-    bottom: 20px;
-    width: 60px;
-    height: 60px;
-    background: #25D366;
-    border-radius: 50%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    text-decoration: none;
-    z-index: 9999;
-    transition: .2s;
-    box-shadow: 0 6px 18px rgba(0,0,0,0.18);
-  }
 
-  .wh-btn:hover {
-    transform: translateY(-4px);
-  }
+        .wh-btn {
+            position: fixed;
+            right: 20px;
+            bottom: 20px;
+            width: 60px;
+            height: 60px;
+            background: #25D366;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-decoration: none;
+            z-index: 9999;
+            transition: .2s;
+            box-shadow: 0 6px 18px rgba(0, 0, 0, 0.18);
+        }
 
-  .wh-icon {
-    width: 34px;
-    height: 34px;
-  }
+        .wh-btn:hover {
+            transform: translateY(-4px);
+        }
 
-  .wh-pulse {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    background: rgba(37,211,102,0.18);
-    border-radius: 50%;
-    animation: pulse 2.4s infinite;
-    z-index: -1;
-  }
+        .wh-icon {
+            width: 34px;
+            height: 34px;
+        }
 
-  @keyframes pulse {
-    0%   { transform: scale(.9); opacity: .7; }
-    70%  { transform: scale(1.8); opacity: 0; }
-    100% { transform: scale(1.8); opacity: 0; }
-  }
+        .wh-pulse {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: rgba(37, 211, 102, 0.18);
+            border-radius: 50%;
+            animation: pulse 2.4s infinite;
+            z-index: -1;
+        }
+
+        @keyframes pulse {
+            0% {
+                transform: scale(.9);
+                opacity: .7;
+            }
+
+            70% {
+                transform: scale(1.8);
+                opacity: 0;
+            }
+
+            100% {
+                transform: scale(1.8);
+                opacity: 0;
+            }
+        }
     </style>
-<script>
-!function(f,b,e,v,n,t,s)
-{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-n.callMethod.apply(n,arguments):n.queue.push(arguments)};
-if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
-n.queue=[];t=b.createElement(e);t.async=!0;
-t.src=v;s=b.getElementsByTagName(e)[0];
-s.parentNode.insertBefore(t,s)}(window, document,'script',
-'https://connect.facebook.net/en_US/fbevents.js');
-fbq('init', '1233270205500258');
-fbq('track', 'PageView');
-</script>
-<noscript><img height="1" width="1" style="display:none"
-src="https://www.facebook.com/tr?id=1233270205500258&ev=PageView&noscript=1"
-/></noscript>
+    <script>
+        ! function(f, b, e, v, n, t, s) {
+            if (f.fbq) return;
+            n = f.fbq = function() {
+                n.callMethod ?
+                    n.callMethod.apply(n, arguments) : n.queue.push(arguments)
+            };
+            if (!f._fbq) f._fbq = n;
+            n.push = n;
+            n.loaded = !0;
+            n.version = '2.0';
+            n.queue = [];
+            t = b.createElement(e);
+            t.async = !0;
+            t.src = v;
+            s = b.getElementsByTagName(e)[0];
+            s.parentNode.insertBefore(t, s)
+        }(window, document, 'script',
+            'https://connect.facebook.net/en_US/fbevents.js');
+        fbq('init', '1233270205500258');
+        fbq('track', 'PageView');
+    </script>
+    <noscript><img height="1" width="1" style="display:none"
+            src="https://www.facebook.com/tr?id=1233270205500258&ev=PageView&noscript=1" /></noscript>
 </head>
 
 <body>
     <!-- WhatsApp Floating Button -->
-<a href="https://wa.me/31687879704?text=Hello!%20I%20visited%20your%20website."
-   class="wh-btn"
-   target="_blank">
+    <a href="https://wa.me/31687879704?text=Hello!%20I%20visited%20your%20website."
+        class="wh-btn"
+        target="_blank">
 
-  <span class="wh-pulse"></span>
+        <span class="wh-pulse"></span>
 
-  <!-- REAL WhatsApp Official Icon -->
-  <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg"
-       alt="WhatsApp"
-       class="wh-icon">
-</a>
+        <!-- REAL WhatsApp Official Icon -->
+        <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg"
+            alt="WhatsApp"
+            class="wh-icon">
+    </a>
     <header>
         <div class="logo" style="margin-top: 20px;">
             <a href="{{ route('home.index') }}">
                 <img src="{{ asset($webset->logo) }}" alt="">
             </a>
         </div>
+        @stack('custom-header-nav')
         <div class="nav-menu">
             <ul>
                 <li class="menu-item active">
@@ -362,7 +404,7 @@ src="https://www.facebook.com/tr?id=1233270205500258&ev=PageView&noscript=1"
                             </ul>
                         </div>
                         <div class="column">
-<h4><a href="{{ route('service', 'mobile-development') }}">{{ __('web.services_menu.mobile_app') }}</a></h4>
+                            <h4><a href="{{ route('service', 'mobile-development') }}">{{ __('web.services_menu.mobile_app') }}</a></h4>
                             <ul>
                                 @php
                                 $mobileServices = \App\Models\Service::where('type', 'mobile-development')->get();
@@ -377,7 +419,7 @@ src="https://www.facebook.com/tr?id=1233270205500258&ev=PageView&noscript=1"
                             </ul>
                         </div>
                         <div class="column">
-<h4><a href="{{ route('service', 'graphic-designing') }}">{{ __('web.services_menu.graphic_design') }}</a></h4>
+                            <h4><a href="{{ route('service', 'graphic-designing') }}">{{ __('web.services_menu.graphic_design') }}</a></h4>
                             <ul>
                                 @php
                                 $graphicServices = \App\Models\Service::where('type', 'graphic-designing')->get();
@@ -392,7 +434,7 @@ src="https://www.facebook.com/tr?id=1233270205500258&ev=PageView&noscript=1"
                             </ul>
                         </div>
                         <div class="column">
-<h4><a href="{{ route('service', 'ai-development') }}">{{ __('web.services_menu.ai_development') }}</a></h4>
+                            <h4><a href="{{ route('service', 'ai-development') }}">{{ __('web.services_menu.ai_development') }}</a></h4>
                             <ul>
                                 @php
                                 $aiServices = \App\Models\Service::where('type', 'ai-development')->get();
@@ -407,7 +449,7 @@ src="https://www.facebook.com/tr?id=1233270205500258&ev=PageView&noscript=1"
                             </ul>
                         </div>
                         <div class="column">
-<h4><a href="{{ route('service', 'digital-marketing') }}">{{ __('web.services_menu.digital_marketing') }}</a></h4>
+                            <h4><a href="{{ route('service', 'digital-marketing') }}">{{ __('web.services_menu.digital_marketing') }}</a></h4>
                             <ul>
                                 @php
                                 $digitalMarketingServices = \App\Models\Service::where('type', 'digital-marketing')->get();
@@ -437,21 +479,21 @@ src="https://www.facebook.com/tr?id=1233270205500258&ev=PageView&noscript=1"
         </div>
         <div class="header-btn" style="display: flex; align-items: center; gap: 15px;">
             @php
-                $availableLanguages = $webset->available_languages_array ?? ['nl', 'en', 'fr', 'de'];
-                $languageNames = [
-                    'nl' => '🇳🇱 Nederlands',
-                    'en' => '🇬🇧 English',
-                    'fr' => '🇫🇷 Français',
-                    'de' => '🇩🇪 Deutsch',
-                ];
+            $availableLanguages = $webset->available_languages_array ?? ['nl', 'en', 'fr', 'de'];
+            $languageNames = [
+            'nl' => '🇳🇱 Nederlands',
+            'en' => '🇬🇧 English',
+            'fr' => '🇫🇷 Français',
+            'de' => '🇩🇪 Deutsch',
+            ];
             @endphp
             @if(count($availableLanguages) > 1)
             <div class="language-menu">
                 <button class="language-trigger" style="background: none; border: none; cursor: pointer; display: flex; align-items: center; gap: 5px; padding: 8px 12px; border-radius: 8px; transition: background 0.2s;">
                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <circle cx="12" cy="12" r="10"/>
-                        <line x1="2" y1="12" x2="22" y2="12"/>
-                        <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
+                        <circle cx="12" cy="12" r="10" />
+                        <line x1="2" y1="12" x2="22" y2="12" />
+                        <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" />
                     </svg>
                     <span style="font-weight: 600; color: #ffffffff;">{{ strtoupper(app()->getLocale()) }}</span>
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="chevron-icon">
@@ -460,21 +502,21 @@ src="https://www.facebook.com/tr?id=1233270205500258&ev=PageView&noscript=1"
                 </button>
                 <ul class="language-dropdown">
                     @foreach($availableLanguages as $langCode)
-                        @if(isset($languageNames[$langCode]))
-                            <li>
-                                <a href="{{ route('language.switch', $langCode) }}" 
-                                   class="{{ app()->getLocale() == $langCode ? 'active' : '' }}">
-                                    {{ $languageNames[$langCode] }}
-                                </a>
-                            </li>
-                        @endif
+                    @if(isset($languageNames[$langCode]))
+                    <li>
+                        <a href="{{ route('language.switch', $langCode) }}"
+                            class="{{ app()->getLocale() == $langCode ? 'active' : '' }}">
+                            {{ $languageNames[$langCode] }}
+                        </a>
+                    </li>
+                    @endif
                     @endforeach
                 </ul>
             </div>
             @endif
             <a class="mobile-consl" href="{{ route('home.landing') }}" class="button">{{ __('web.buttons.get_free_consultation') }}</a>
         </div>
-        
+
         <div class="Mobile-headers">
             <!-- Mobile Menu Button -->
             <div class="mobilmenus">
@@ -542,7 +584,7 @@ src="https://www.facebook.com/tr?id=1233270205500258&ev=PageView&noscript=1"
                 @php
                 $services = \App\Models\Service::where('type', 'service')->get();
                 @endphp
-              
+
 
                 <div class="links-container">
                     @php
@@ -552,7 +594,7 @@ src="https://www.facebook.com/tr?id=1233270205500258&ev=PageView&noscript=1"
                     <ul class="links">
                         @foreach($development->where('type', 'ai-development') as $service)
                         <li>
-            <a href="{{ route('service.ai-development', $service->slug) }}">
+                            <a href="{{ route('service.ai-development', $service->slug) }}">
 
                                 {{ $service->getLocalizedName() }}
                             </a>
@@ -564,46 +606,46 @@ src="https://www.facebook.com/tr?id=1233270205500258&ev=PageView&noscript=1"
                 <div class="links-container">
                     <h4 class="links-title">{{ __('web.footer.others') }}</h4>
                     <ul class="links">
-                     <li>
-    <a href="{{ route('service') }}">
-        {{ __('web.footer.services') }}
-    </a>
-</li>
-<li>
-    <a href="#">
-        {{ __('web.footer.ai_development') }}
-    </a>
-</li>
-<li>
-    <a href="{{ route('blog') }}">
-        {{ __('web.footer.blogs') }}
-    </a>
-</li>
-<li>
-    <a href="{{ route('about-us') }}">
-        {{ __('web.footer.about_us') }}
-    </a>
-</li>
-<li>
-    <a href="{{ route('appointment') }}">
-        {{ __('web.footer.appointment') }}
-    </a>
-</li>
-<li>
-    <a href="{{ route('contact-us') }}">
-        {{ __('web.footer.contact') }}
-    </a>
-</li>
-<li>
-    <a href="{{ route('sitemap') }}">
-        {{ __('web.footer.sitemap') }}
-    </a>
-</li>
+                        <li>
+                            <a href="{{ route('service') }}">
+                                {{ __('web.footer.services') }}
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                {{ __('web.footer.ai_development') }}
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{ route('blog') }}">
+                                {{ __('web.footer.blogs') }}
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{ route('about-us') }}">
+                                {{ __('web.footer.about_us') }}
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{ route('appointment') }}">
+                                {{ __('web.footer.appointment') }}
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{ route('contact-us') }}">
+                                {{ __('web.footer.contact') }}
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{ route('sitemap') }}">
+                                {{ __('web.footer.sitemap') }}
+                            </a>
+                        </li>
 
 
                     </ul>
                 </div>
-                 <div class="links-container">
+                <div class="links-container">
                     <h4 class="links-title">{{ __('web.footer.services') }}</h4>
                     <ul class="links">
                         @foreach($services as $service)
@@ -698,29 +740,30 @@ src="https://www.facebook.com/tr?id=1233270205500258&ev=PageView&noscript=1"
     </script>
     @endif
     <script>
-document.addEventListener("DOMContentLoaded", function () {
-    const row = document.getElementById("testimonialRow");
-    let speed = 1; // pixels per frame
-    let offset = 0;
+        document.addEventListener("DOMContentLoaded", function() {
+            const row = document.getElementById("testimonialRow");
+            let speed = 1; // pixels per frame
+            let offset = 0;
 
-    function animate() {
-        offset -= speed;
-        row.style.transform = `translateX(${offset}px)`;
+            function animate() {
+                offset -= speed;
+                if (row)
+                    row.style.transform = `translateX(${offset}px)`;
 
-        const firstCard = row.children[0];
-        const firstCardWidth = firstCard.offsetWidth + 24; // card width + gap
+                const firstCard = row.children[0];
+                const firstCardWidth = firstCard.offsetWidth + 24; // card width + gap
 
-        if (Math.abs(offset) >= firstCardWidth) {
-            row.appendChild(firstCard);
-            offset += firstCardWidth;
-        }
+                if (Math.abs(offset) >= firstCardWidth) {
+                    row.appendChild(firstCard);
+                    offset += firstCardWidth;
+                }
 
-        requestAnimationFrame(animate);
-    }
+                requestAnimationFrame(animate);
+            }
 
-    animate();
-});
-</script>
+            animate();
+        });
+    </script>
 
     <script>
         document.addEventListener("DOMContentLoaded", function() {
@@ -739,39 +782,39 @@ document.addEventListener("DOMContentLoaded", function () {
             });
         });
     </script>
-   <script>
-document.addEventListener("DOMContentLoaded", function () {
-    const track = document.getElementById("carouselTrack");
-    if (!track) return;
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const track = document.getElementById("carouselTrack");
+            if (!track) return;
 
-    const cards = Array.from(track.children);
-    let currentIndex = 0;
+            const cards = Array.from(track.children);
+            let currentIndex = 0;
 
-    cards.forEach(card => {
-        const clone = card.cloneNode(true);
-        track.appendChild(clone);
-    });
+            cards.forEach(card => {
+                const clone = card.cloneNode(true);
+                track.appendChild(clone);
+            });
 
-    function slideCarousel() {
-        currentIndex++;
-        const cardWidth = cards[0].offsetWidth + 20;
-        track.style.transform = `translateX(-${cardWidth * currentIndex}px)`;
+            function slideCarousel() {
+                currentIndex++;
+                const cardWidth = cards[0].offsetWidth + 20;
+                track.style.transform = `translateX(-${cardWidth * currentIndex}px)`;
 
-        if (currentIndex >= cards.length) {
-            setTimeout(() => {
-                track.style.transition = "none";
-                track.style.transform = "translateX(0)";
-                currentIndex = 0;
-                setTimeout(() => {
-                    track.style.transition = "transform 0.5s ease";
-                }, 20);
-            }, 500);
-        }
-    }
+                if (currentIndex >= cards.length) {
+                    setTimeout(() => {
+                        track.style.transition = "none";
+                        track.style.transform = "translateX(0)";
+                        currentIndex = 0;
+                        setTimeout(() => {
+                            track.style.transition = "transform 0.5s ease";
+                        }, 20);
+                    }, 500);
+                }
+            }
 
-    setInterval(slideCarousel, 3000);
-});
-</script>
+            setInterval(slideCarousel, 3000);
+        });
+    </script>
 
     <script>
         function toggleAccordion(event, itemNumber, element) {
@@ -838,7 +881,7 @@ document.addEventListener("DOMContentLoaded", function () {
             }
         });
     </script>
-    
+
 
     <script>
         // IntersectionObserver for scroll animation
@@ -859,43 +902,42 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     </script>
 
-<script>
-document.addEventListener("DOMContentLoaded", function () {
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
 
-    function setupInfiniteScroll(rowId, direction = "left", speed = 0.5) {
-        const row = document.getElementById(rowId);
+            function setupInfiniteScroll(rowId, direction = "left", speed = 0.5) {
+                const row = document.getElementById(rowId);
 
-        // Clone content once for seamless scrolling
-        row.innerHTML += row.innerHTML;
+                // Clone content once for seamless scrolling
+                row.innerHTML += row.innerHTML;
 
-        const totalWidth = row.scrollWidth / 2;
-        let offset = (direction === "right") ? -totalWidth : 0;
+                const totalWidth = row.scrollWidth / 2;
+                let offset = (direction === "right") ? -totalWidth : 0;
 
-        function animate() {
-            offset += (direction === "left" ? -speed : speed);
+                function animate() {
+                    offset += (direction === "left" ? -speed : speed);
 
-            if (direction === "left" && Math.abs(offset) >= totalWidth) {
-                offset = 0;
-            } 
-            else if (direction === "right" && offset >= 0) {
-                offset = -totalWidth;
+                    if (direction === "left" && Math.abs(offset) >= totalWidth) {
+                        offset = 0;
+                    } else if (direction === "right" && offset >= 0) {
+                        offset = -totalWidth;
+                    }
+
+                    row.style.transform = `translateX(${offset}px)`;
+                    requestAnimationFrame(animate);
+                }
+
+                animate();
             }
 
-            row.style.transform = `translateX(${offset}px)`;
-            requestAnimationFrame(animate);
-        }
+            // Top row scrolls left
+            setupInfiniteScroll("techRowLeft", "left", 0.6);
 
-        animate();
-    }
+            // Bottom row scrolls right
+            setupInfiniteScroll("techRowRight", "right", 0.6);
 
-    // Top row scrolls left
-    setupInfiniteScroll("techRowLeft", "left", 0.6);
-
-    // Bottom row scrolls right
-    setupInfiniteScroll("techRowRight", "right", 0.6);
-
-});
-</script>
+        });
+    </script>
 
 </body>
 

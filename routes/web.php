@@ -47,10 +47,10 @@ Route::post('/form-test', function () {
 });
 // Language Switcher
 Route::middleware(['web'])->group(function () {
-Route::get('/language/{locale}', [BasicController::class, 'switchLanguage'])->name('language.switch');
-// Admin login
-Route::get('/login', [AuthController::class, 'loginform'])->name('login');
-Route::post('/admin-login', [AuthController::class, 'login'])->name('loginform');
+    Route::get('/language/{locale}', [BasicController::class, 'switchLanguage'])->name('language.switch');
+    // Admin login
+    Route::get('/login', [AuthController::class, 'loginform'])->name('login');
+    Route::post('/admin-login', [AuthController::class, 'login'])->name('loginform');
 });
 Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
 
@@ -97,7 +97,7 @@ Route::middleware(['auth', AdminMiddleware::class])->prefix('admin')->group(func
     //blog
     Route::get('/blogs', [BlogController::class, 'index'])->name('blogs.index');
     Route::post('/blogs', [BlogController::class, 'store'])->name('blogs.store');
-Route::get('/blogs/{id}/edit', [BlogController::class, 'edit'])->name('blogs.edit');
+    Route::get('/blogs/{id}/edit', [BlogController::class, 'edit'])->name('blogs.edit');
     Route::put('/blogs/{id}', [BlogController::class, 'update'])->name('blogs.update');
     Route::delete('/blogs/{id}', [BlogController::class, 'destroy'])->name('blogs.destroy');
     Route::put('/blogs/status/{id}/{status}', [BlogController::class, 'changeStatus'])->name('blogs.status');
@@ -182,25 +182,25 @@ Route::get('/blogs/{id}/edit', [BlogController::class, 'edit'])->name('blogs.edi
     Route::get('/contact-list', [ContactController::class, 'contactlist'])->name('contact.list');
     Route::delete('/contact-delete/{id}', [ContactController::class, 'contactdelete'])->name('contact.delete');
     Route::get('/contact/search', [ContactController::class, 'contactSearch'])->name('contact.search');
-//landing 
+    //landing 
     Route::get('/landing-list', [LandingController::class, 'landinglist'])->name('landing.index');
     Route::delete('/landing-delete/{id}', [LandingController::class, 'landingdelete'])->name('landing.delete');
     Route::get('/landing/search', [LandingController::class, 'landingSearch'])->name('landing.search');
     // Landing Types
     Route::patch('landing-types/{landingType}/toggle-status', [LandingTypeController::class, 'toggleStatus'])->name('landing-types.toggle-status');
     Route::resource('landing-types', LandingTypeController::class)->except(['show']);
-    
+
     // Landing pages CRUD
     Route::resource('landing-pages', LandingPageController::class)->except(['show']);
     Route::get('actions', [ActionController::class, 'index'])->name('actions.index');
-    Route::post('/action-save',[ActionController::class,'store'])->name('action-store');
-    Route::get('/action-countless',[CountlessController::class,'index'])->name('action-countless');
+    Route::post('/action-save', [ActionController::class, 'store'])->name('action-store');
+    Route::get('/action-countless', [CountlessController::class, 'index'])->name('action-countless');
     Route::post('/admin/countless/save', [CountlessController::class, 'save'])->name('admin.countless.save');
     Route::get('/admin/banner', [BannerController::class, 'index'])->name('admin.banner');
     Route::post('/admin/banner/save', [BannerController::class, 'save'])->name('admin.banner.save');
     Route::get('/admin/welcome', [AdminWelcomeController::class, 'index'])->name('admin.welcome');
     Route::post('/admin/welcome/save', [AdminWelcomeController::class, 'save'])->name('admin.welcome.save');
-    
+
     // Landing Form Labels
     Route::get('/landing-form-labels/edit', [LandingFormLabelController::class, 'edit'])->name('landing-form-labels.edit');
     Route::post('/landing-form-labels/update', [LandingFormLabelController::class, 'updateOrCreate'])->name('landing-form-labels.update');
@@ -208,15 +208,16 @@ Route::get('/blogs/{id}/edit', [BlogController::class, 'edit'])->name('blogs.edi
 
 Route::get('/', [BasicController::class, 'index'])->name('home.index');
 Route::get('/book-a-form', [BasicController::class, 'landingPage'])->name('home.landing');
-Route::get('/landing/{slug}', [BasicController::class, 'landingPageByService'])->name('landing.by-service');
 Route::get('/about-us', [BasicController::class, 'about'])->name('about-us');
 Route::get('/contact-us', [BasicController::class, 'contact'])->name('contact-us');
 Route::get('/sitemap', [BasicController::class, 'sitemap'])->name('sitemap');
 Route::post('/landing-submit', [LandingController::class, 'submitForm'])->name('landing.submit');
-Route::get('/thank-you',[WelcomController::class,'index'])->name('welcome');
+Route::get('/thank-you', [WelcomController::class, 'index'])->name('welcome');
 
 Route::post('/contact-submit', [ContactController::class, 'submitForm'])->name('contact.submit');
 Route::get('/services/{type?}', [BasicController::class, 'services'])->name('service');
+Route::get('/landing/{type}', [BasicController::class, 'landingTypePage'])->name('landing.type');
+Route::get('/landing/service/{type}', [BasicController::class, 'landingServicePage'])->name('landing.service');
 Route::get('/blogs', [BasicController::class, 'blog'])->name('blog');
 Route::get('/blog/{slug}', [BasicController::class, 'blogDetails'])->name('blog.details');
 Route::get('/blog/search', [BasicController::class, 'blogSearch'])->name('blog.search');
@@ -231,4 +232,3 @@ Route::get('/privacy-policy', [BasicController::class, 'privacy'])->name('privac
 Route::get('/terms-condition', [BasicController::class, 'term'])->name('term');
 Route::get('/service/{slug}', [BasicController::class, 'serviceDetails'])->name('service.details');
 Route::get('/service/ai-development/{slug}', [BasicController::class, 'serviceDetails'])->name('service.ai-development');
-

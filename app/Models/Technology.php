@@ -11,4 +11,8 @@ class Technology extends Model
         'name',
         'image',
     ];
+    public function services()
+    {
+        return $this->belongsToMany(Service::class, 'service_technologies', 'technology_id', 'service_id');
+    }
 }

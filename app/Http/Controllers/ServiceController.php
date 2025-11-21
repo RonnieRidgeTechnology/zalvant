@@ -26,7 +26,8 @@ class ServiceController extends Controller
             'hero_title' => 'required|string',
             'hero_description' => 'required|string',
             'hero_image' => 'required|image|mimes:jpeg,png,jpg,gif',
-            'type' => 'required',
+            // 'type' => 'required',
+            'landing_type_id' => 'nullable|integer',
 
 
             // Technology Section
@@ -118,7 +119,8 @@ class ServiceController extends Controller
             'portfolio_description' => $request->portfolio_description,
             'slug' => $slug,
             'icon' => 'images/services/' . $iconName,
-            'type' => $request->type,
+            // 'type' => $request->type,
+            'landing_type_id' => $request->landing_type_id,
             
             // English translations
             'hero_title_en' => $request->hero_title_en,
@@ -202,7 +204,8 @@ class ServiceController extends Controller
             'meta_description' => 'nullable|string',
             'meta_keywords' => 'nullable|string',
             'technologies' => 'required|string',
-            'type' => 'required',
+            // 'type' => 'required',
+            'landing_type_id' => 'nullable|integer',
         ]);
 
         $service = Service::where('slug', $slug)->firstOrFail();
@@ -288,7 +291,8 @@ class ServiceController extends Controller
             'image2' => $service->image2,
             'portfolio_title' => $request->portfolio_title,
             'portfolio_description' => $request->portfolio_description,
-            'type' => $request->type,
+            // 'type' => $request->type,
+            'landing_type_id' => $request->landing_type_id,
             
             // English translations
             'hero_title_en' => $request->hero_title_en,

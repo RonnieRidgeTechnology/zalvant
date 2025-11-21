@@ -743,7 +743,7 @@
                         <div class="grid-2col">
                             <div class="form-group">
                                 <label for="type">Service Type <span class="required">*</span></label>
-                                <select name="type" id="type" class="form-control" required>
+                                <select name="landing_type_id" id="landing_type_id" class="form-control" required>
                                     <option value="">Select Type</option>
                                     @foreach ($types as $type)
                                         <option value="{{ $type->id }}">{{ $type->name }}</option>
