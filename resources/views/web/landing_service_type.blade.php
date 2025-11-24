@@ -1,5 +1,33 @@
 @extends('layouts.web')
 <style>
+    .mobile-consl {
+        display: none;
+    }
+
+    .language-menu {
+        margin-right: 100px;
+        margin-top: 20px;
+    }
+
+    .mobile-sub-services {
+        list-style: none;
+        padding-left: 15px;
+        margin-top: 6px;
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+    }
+
+    .mobile-sub-services li a {
+        font-size: 14px;
+        color: #fff;
+        opacity: 0.85;
+    }
+
+    .mobile-sub-services li a:hover {
+        opacity: 1;
+    }
+
     .service-banner {
         display: block !important;
     }
@@ -611,17 +639,15 @@
         gap: 12px;
         flex: 1 1 0;
         justify-content: center;
-        margin: 0 15px;
-        margin-left: 30px !important;
+        margin-left: 0px !important;
         margin-right: 30px !important;
+        margin-top: 19px;
         min-width: 0;
         overflow-x: auto;
         overflow-y: visible;
         position: relative;
         z-index: 10;
         padding-left: 475px;
-        /* scrollbar-width: none;
-        -ms-overflow-style: none; */
     }
 
     /* Ensure all items in nav are visible */
@@ -759,6 +785,7 @@
             display: block !important;
         }
     }
+
     .zalvant-form-section {
         padding: 0;
         min-height: 100vh;
@@ -989,12 +1016,21 @@
         .zalvant-dark-form {
             padding: 20px 6vw 16px 6vw;
         }
+
+        .language-menu {
+            margin-right: 0px !important;
+            margin-top: 0px !important;
+        }
+
+        .Mobile-headers {
+            margin-right: 52px !important;
+            display: block !important;
+        }
     }
 
     .maintformsection {
         background: linear-gradient(2deg, #010034 70%, #005BD7 100%);
     }
-
 </style>
 <script>
     document.addEventListener('DOMContentLoaded', function() {
@@ -1186,6 +1222,69 @@
                 }, 150);
             });
         });
+    });
+</script>
+@php
+    $landingTypeMenu = [];
+    if (isset($landingTypes) && $landingTypes->count() > 0) {
+        foreach ($landingTypes as $landingType) {
+            $menuItem = [
+                'name' => $landingType->getLocalizedName(),
+                'url' => route('landing.type', $landingType->slug),
+                'dropdown' => [],
+            ];
+
+            if ($landingType->services_list && $landingType->services_list->count() > 0) {
+                foreach ($landingType->services_list as $service) {
+                    $menuItem['dropdown'][] = [
+                        'name' => $service->getLocalizedName(),
+                        'url' => route('landing.service', $service->slug),
+                    ];
+                }
+            }
+
+            $landingTypeMenu[] = $menuItem;
+        }
+    }
+@endphp
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const landingTypeLinks = <?php echo json_encode($landingTypeMenu); ?>;
+
+        const mobileSidebar = document.getElementById('mobileSidebar');
+        const landingNavExists = document.querySelector('.landing-types-nav');
+
+        if (landingNavExists && mobileSidebar && landingTypeLinks.length) {
+            const list = mobileSidebar.querySelector('ul');
+            if (list) {
+                list.innerHTML = '';
+
+                landingTypeLinks.forEach(function(item) {
+                    const li = document.createElement('li');
+                    const anchor = document.createElement('a');
+                    anchor.href = item.url;
+                    anchor.textContent = item.name;
+                    li.appendChild(anchor);
+
+                    // If the landing type has services, nest them as a sub list (accordion-style)
+                    // if (item.dropdown && item.dropdown.length) {
+                    //     const subList = document.createElement('ul');
+                    //     subList.classList.add('mobile-sub-services');
+                    //     item.dropdown.forEach(function(service) {
+                    //         const serviceLi = document.createElement('li');
+                    //         const serviceAnchor = document.createElement('a');
+                    //         serviceAnchor.href = service.url;
+                    //         serviceAnchor.textContent = service.name;
+                    //         serviceLi.appendChild(serviceAnchor);
+                    //         subList.appendChild(serviceLi);
+                    //     });
+                    //     li.appendChild(subList);
+                    // }
+
+                    list.appendChild(li);
+                });
+            }
+        }
     });
 </script>
 @section('meta_title', $servicesupdate->getLocalizedMetaTitle())
@@ -1384,52 +1483,52 @@
         </div>
 </div>
 </section>
-    <div class="service-banner service-bannerrs2">
-        <div class="small-service ui-design">
-            <div class="service-icon">
-                <img src="{{ asset('assets/web/images/imgi_21_1748870857-683da6c9ce7ed.png') }}" alt="imgi">
-            </div>
-            {{ __('web.service_types.ui_design') }}
+<div class="service-banner service-bannerrs2">
+    <div class="small-service ui-design">
+        <div class="service-icon">
+            <img src="{{ asset('assets/web/images/imgi_21_1748870857-683da6c9ce7ed.png') }}" alt="imgi">
         </div>
-        <div class="small-service web-design">
-            <div class="service-icon">
-                <img src="{{ asset('assets/web/images/desktop.png') }}" alt="desktop">
-            </div>
-            {{ __('web.service_types.web_design') }}
+        {{ __('web.service_types.ui_design') }}
+    </div>
+    <div class="small-service web-design">
+        <div class="service-icon">
+            <img src="{{ asset('assets/web/images/desktop.png') }}" alt="desktop">
         </div>
-        <div class="small-service ai-dev">
-            <div class="service-icon">
-                <img src="{{ asset('assets/web/images/imgi_21_1748870857-683da6c9ce7ed.png') }}" alt="imgi">
-            </div>
-            {{ __('web.service_types.ai_development') }}
+        {{ __('web.service_types.web_design') }}
+    </div>
+    <div class="small-service ai-dev">
+        <div class="service-icon">
+            <img src="{{ asset('assets/web/images/imgi_21_1748870857-683da6c9ce7ed.png') }}" alt="imgi">
         </div>
-        <div class="small-service social-media">
-            <div class="service-icon">
-                <img src="{{ asset('assets/web/images/Rocket.png') }}" alt="Rocket">
-            </div>
-            {{ __('web.service_types.social_media') }}
+        {{ __('web.service_types.ai_development') }}
+    </div>
+    <div class="small-service social-media">
+        <div class="service-icon">
+            <img src="{{ asset('assets/web/images/Rocket.png') }}" alt="Rocket">
         </div>
-        <div class="small-service mobile-app">
-            <div class="service-icon">
-                <img src="{{ asset('assets/web/images/imgi_6_Mobile.png') }}" alt="imgi">
-            </div>
-            {{ __('web.service_types.mobile_app') }}
+        {{ __('web.service_types.social_media') }}
+    </div>
+    <div class="small-service mobile-app">
+        <div class="service-icon">
+            <img src="{{ asset('assets/web/images/imgi_6_Mobile.png') }}" alt="imgi">
         </div>
-        <div class="curveborder">
-            <img src="https://azeetechnology.com/assets/web/images/border-curve.png" class="" alt="border-curve">
-            <div class="dot dot1"></div>
-            <div class="dot dot2"></div>
-            <div class="dot dot3"></div>
-            <div class="dot dot4"></div>
-            <div class="dot dot5"></div>
-        </div>
+        {{ __('web.service_types.mobile_app') }}
+    </div>
+    <div class="curveborder">
+        <img src="https://azeetechnology.com/assets/web/images/border-curve.png" class="" alt="border-curve">
+        <div class="dot dot1"></div>
+        <div class="dot dot2"></div>
+        <div class="dot dot3"></div>
+        <div class="dot dot4"></div>
+        <div class="dot dot5"></div>
+    </div>
 
-        <div class="logo-container">
-            <div class="service-logo">
-                <img src="https://zalvant.com/assets/web/images/Group_1000006059-removebg-preview.png" alt="preview">
-            </div>
+    <div class="logo-container">
+        <div class="service-logo">
+            <img src="https://zalvant.com/assets/web/images/Group_1000006059-removebg-preview.png" alt="preview">
         </div>
     </div>
+</div>
 </div>
 <div class="about-section">
     <div class="description">
