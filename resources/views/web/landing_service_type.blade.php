@@ -1181,8 +1181,12 @@
 <!--</div>-->
 <div class="banner">
     <div class="banner-header">
-        <h1 class="banner-title">{{ $servicesupdate->getLocalizedMainTitle() }}</h1>
-        <p class="banner-des">{{ $servicesupdate->getLocalizedMainDesc() }}</p>
+        <h1 class="banner-title">
+            {{ isset($serviceType) ? $serviceType->getLocalizedMainTitle() : $servicesupdate->getLocalizedMainTitle() }}
+        </h1>
+        <p class="banner-des">
+            {{ isset($serviceType) ? $serviceType->getLocalizedMainDesc() : $servicesupdate->getLocalizedMainDesc() }}
+        </p>
     </div>
     <section class="zalvant-form-section">
         <div class="zalvant-form-container">
@@ -1288,8 +1292,8 @@
 </div>
 <div class="about-section">
     <div class="description">
-        <h1>{{ $servicesupdate->getLocalizedOfferTitle() }}</h1>
-        <p>{{ $servicesupdate->getLocalizedOfferDesc() }}</p>
+        <h1>{{ isset($serviceType) ? $serviceType->getLocalizedOfferTitle() : $servicesupdate->getLocalizedOfferTitle() }}</h1>
+        <p>{{ isset($serviceType) ? $serviceType->getLocalizedOfferDesc() : $servicesupdate->getLocalizedOfferDesc() }}</p>
     </div>
     <div class="about-cards-container">
         @if(isset($services) && $services->count() > 0)
@@ -1349,21 +1353,45 @@
         <img src="{{ asset('assets/web/images/aiservicescardsbg.png') }}" alt="aiservicescardsbg">
     </div>
     <div class="descriptiodealContainers">
-        <h1>{{ $servicesupdate->getLocalizedDealAiTitle() }}</h1>
-        <p>{{ $servicesupdate->getLocalizedDealAiDesc() }}</p>
+        <h1>{{ isset($serviceType) ? $serviceType->getLocalizedDealAiTitle() : $servicesupdate->getLocalizedDealAiTitle() }}</h1>
+        <p>{{ isset($serviceType) ? $serviceType->getLocalizedDealAiDesc() : $servicesupdate->getLocalizedDealAiDesc() }}</p>
     </div>
     <div class="aiservicesAll">
-        @foreach ($aideals as $deal)
-        <div class="aiservicescards">
-            <div class="aiservicescardsimg">
-                <img src="{{ asset($deal->image) }}" alt="image">
-            </div>
-            <div class="aiservicescardstext">
-                <h1>{{ $deal->getLocalizedName() }}</h1>
-                <p>{{ $deal->getLocalizedDesc() }}</p>
-            </div>
-        </div>
-        @endforeach
+        @if(isset($serviceType))
+            @php
+                $dealCards = [
+                    [
+                        'name' => $serviceType->getLocalizedDeal1Name(),
+                        'desc' => $serviceType->getLocalizedDeal1Desc(),
+                        'image' => $serviceType->deal1_image,
+                    ],
+                    [
+                        'name' => $serviceType->getLocalizedDeal2Name(),
+                        'desc' => $serviceType->getLocalizedDeal2Desc(),
+                        'image' => $serviceType->deal2_image,
+                    ],
+                    [
+                        'name' => $serviceType->getLocalizedDeal3Name(),
+                        'desc' => $serviceType->getLocalizedDeal3Desc(),
+                        'image' => $serviceType->deal3_image,
+                    ],
+                ];
+            @endphp
+
+            @foreach ($dealCards as $card)
+                @if (!empty($card['name']))
+                    <div class="aiservicescards">
+                        <div class="aiservicescardsimg">
+                            <img src="{{ !empty($card['image']) ? asset($card['image']) : asset('assets/web/images/aiservicescardsbg.png') }}" alt="image">
+                        </div>
+                        <div class="aiservicescardstext">
+                            <h1>{{ $card['name'] }}</h1>
+                            <p>{{ $card['desc'] }}</p>
+                        </div>
+                    </div>
+                @endif
+            @endforeach
+        @endif
     </div>
 </div>
 <div class="offringai3">

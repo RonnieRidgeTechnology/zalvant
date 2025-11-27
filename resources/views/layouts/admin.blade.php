@@ -1457,7 +1457,7 @@
                         <i class="fa-light fa-angle-right arrow"></i>
                     </a>
                     <div class="sub-nav">
-                        <a href="{{ route('landing-types.create') }}" class="nav-link">
+                        <a href="{{ route('landing-types.index') }}" class="nav-link">
                             <i class="fa-light fa-sliders"></i>
                             <span>Types</span>
                         </a>

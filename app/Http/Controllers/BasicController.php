@@ -250,18 +250,32 @@ class BasicController extends Controller
             });
 
         $serviceType = LandingType::with('services.portfolios')->where('slug', $type)->first();
-        $services = $serviceType->services;
+        if (!$serviceType) {
+            abort(404, 'Service type not found.');
+        }
+        $services = $serviceType ? $serviceType->services : collect();
 
-        $serviceIds = $services->pluck('id')->toArray();
+        if (!empty($services) && method_exists($services, 'pluck')) {
+            $serviceIds = $services->pluck('id')->toArray();
+        } else {
+            $serviceIds = [];
+            $services = collect();
+        }
 
-        // Fetch all technologies assigned via pivot service_technologies table for these services
-        $technologies = \App\Models\Technology::whereHas('services', function ($q) use ($serviceIds) {
-            $q->whereIn('services.id', $serviceIds);
-        })->get();
+        $technologies = [];
+        $portfolios = [];
+        if (!empty($serviceIds)) {
+            $technologies = \App\Models\Technology::whereHas('services', function ($q) use ($serviceIds) {
+                $q->whereIn('services.id', $serviceIds);
+            })->get();
 
-        $portfolios = \App\Models\Portfolio::whereHas('services', function ($q) use ($serviceIds) {
-            $q->whereIn('services.id', $serviceIds);
-        })->get();
+            $portfolios = \App\Models\Portfolio::whereHas('services', function ($q) use ($serviceIds) {
+                $q->whereIn('services.id', $serviceIds);
+            })->get();
+        } else {
+            $technologies = collect();
+            $portfolios = collect();
+        }
         $formLabels = LandingFormLabel::first();
         $websetting = Websetting::first();
 

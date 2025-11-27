@@ -198,6 +198,232 @@
                 @enderror
             </div>
 
+            <hr style="margin: 2rem 0;">
+            <h3 class="section-header" style="font-size:1.1rem;">Landing Page Content</h3>
+
+            {{-- Banner section --}}
+            <div class="form-group">
+                <label class="form-label">Banner Title (NL)</label>
+                <input type="text" name="main_title" class="form-control" value="{{ old('main_title', $type->main_title) }}">
+            </div>
+            <div class="form-group">
+                <label class="form-label">Banner Title (EN)</label>
+                <input type="text" name="main_title_en" class="form-control" value="{{ old('main_title_en', $type->main_title_en) }}">
+            </div>
+            <div class="form-group">
+                <label class="form-label">Banner Title (FR)</label>
+                <input type="text" name="main_title_fr" class="form-control" value="{{ old('main_title_fr', $type->main_title_fr) }}">
+            </div>
+            <div class="form-group">
+                <label class="form-label">Banner Title (DE)</label>
+                <input type="text" name="main_title_de" class="form-control" value="{{ old('main_title_de', $type->main_title_de) }}">
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">Banner Description (NL)</label>
+                <textarea name="main_desc" class="form-control" rows="2">{{ old('main_desc', $type->main_desc) }}</textarea>
+            </div>
+            <div class="form-group">
+                <label class="form-label">Banner Description (EN)</label>
+                <textarea name="main_desc_en" class="form-control" rows="2">{{ old('main_desc_en', $type->main_desc_en) }}</textarea>
+            </div>
+            <div class="form-group">
+                <label class="form-label">Banner Description (FR)</label>
+                <textarea name="main_desc_fr" class="form-control" rows="2">{{ old('main_desc_fr', $type->main_desc_fr) }}</textarea>
+            </div>
+            <div class="form-group">
+                <label class="form-label">Banner Description (DE)</label>
+                <textarea name="main_desc_de" class="form-control" rows="2">{{ old('main_desc_de', $type->main_desc_de) }}</textarea>
+            </div>
+
+            {{-- Offer section (cards intro) --}}
+            <div class="form-group">
+                <label class="form-label">Offer Section Title (NL)</label>
+                <input type="text" name="offer_title" class="form-control" value="{{ old('offer_title', $type->offer_title) }}">
+            </div>
+            <div class="form-group">
+                <label class="form-label">Offer Section Title (EN)</label>
+                <input type="text" name="offer_title_en" class="form-control" value="{{ old('offer_title_en', $type->offer_title_en) }}">
+            </div>
+            <div class="form-group">
+                <label class="form-label">Offer Section Title (FR)</label>
+                <input type="text" name="offer_title_fr" class="form-control" value="{{ old('offer_title_fr', $type->offer_title_fr) }}">
+            </div>
+            <div class="form-group">
+                <label class="form-label">Offer Section Title (DE)</label>
+                <input type="text" name="offer_title_de" class="form-control" value="{{ old('offer_title_de', $type->offer_title_de) }}">
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">Offer Section Description (NL)</label>
+                <textarea name="offer_desc" class="form-control" rows="2">{{ old('offer_desc', $type->offer_desc) }}</textarea>
+            </div>
+            <div class="form-group">
+                <label class="form-label">Offer Section Description (EN)</label>
+                <textarea name="offer_desc_en" class="form-control" rows="2">{{ old('offer_desc_en', $type->offer_desc_en) }}</textarea>
+            </div>
+            <div class="form-group">
+                <label class="form-label">Offer Section Description (FR)</label>
+                <textarea name="offer_desc_fr" class="form-control" rows="2">{{ old('offer_desc_fr', $type->offer_desc_fr) }}</textarea>
+            </div>
+            <div class="form-group">
+                <label class="form-label">Offer Section Description (DE)</label>
+                <textarea name="offer_desc_de" class="form-control" rows="2">{{ old('offer_desc_de', $type->offer_desc_de) }}</textarea>
+            </div>
+
+            {{-- AI Deals header --}}
+            <div class="form-group">
+                <label class="form-label">AI Deals Title (NL)</label>
+                <input type="text" name="deal_ai_title" class="form-control" value="{{ old('deal_ai_title', $type->deal_ai_title) }}">
+            </div>
+            <div class="form-group">
+                <label class="form-label">AI Deals Title (EN)</label>
+                <input type="text" name="deal_ai_title_en" class="form-control" value="{{ old('deal_ai_title_en', $type->deal_ai_title_en) }}">
+            </div>
+            <div class="form-group">
+                <label class="form-label">AI Deals Title (FR)</label>
+                <input type="text" name="deal_ai_title_fr" class="form-control" value="{{ old('deal_ai_title_fr', $type->deal_ai_title_fr) }}">
+            </div>
+            <div class="form-group">
+                <label class="form-label">AI Deals Title (DE)</label>
+                <input type="text" name="deal_ai_title_de" class="form-control" value="{{ old('deal_ai_title_de', $type->deal_ai_title_de) }}">
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">AI Deals Description (NL)</label>
+                <textarea name="deal_ai_desc" class="form-control" rows="2">{{ old('deal_ai_desc', $type->deal_ai_desc) }}</textarea>
+            </div>
+            <div class="form-group">
+                <label class="form-label">AI Deals Description (EN)</label>
+                <textarea name="deal_ai_desc_en" class="form-control" rows="2">{{ old('deal_ai_desc_en', $type->deal_ai_desc_en) }}</textarea>
+            </div>
+            <div class="form-group">
+                <label class="form-label">AI Deals Description (FR)</label>
+                <textarea name="deal_ai_desc_fr" class="form-control" rows="2">{{ old('deal_ai_desc_fr', $type->deal_ai_desc_fr) }}</textarea>
+            </div>
+            <div class="form-group">
+                <label class="form-label">AI Deals Description (DE)</label>
+                <textarea name="deal_ai_desc_de" class="form-control" rows="2">{{ old('deal_ai_desc_de', $type->deal_ai_desc_de) }}</textarea>
+            </div>
+
+            {{-- Deals 1–3 --}}
+            <hr style="margin: 2rem 0 1rem;">
+            <h4 class="section-header" style="font-size:1rem;">AI Deals Cards (3 items)</h4>
+
+            {{-- Deal 1 --}}
+            <div class="form-group">
+                <label class="form-label">Deal 1 Name (NL)</label>
+                <input type="text" name="deal1_name" class="form-control" value="{{ old('deal1_name', $type->deal1_name) }}">
+            </div>
+            <div class="form-group">
+                <label class="form-label">Deal 1 Name (EN)</label>
+                <input type="text" name="deal1_name_en" class="form-control" value="{{ old('deal1_name_en', $type->deal1_name_en) }}">
+            </div>
+            <div class="form-group">
+                <label class="form-label">Deal 1 Name (FR)</label>
+                <input type="text" name="deal1_name_fr" class="form-control" value="{{ old('deal1_name_fr', $type->deal1_name_fr) }}">
+            </div>
+            <div class="form-group">
+                <label class="form-label">Deal 1 Name (DE)</label>
+                <input type="text" name="deal1_name_de" class="form-control" value="{{ old('deal1_name_de', $type->deal1_name_de) }}">
+            </div>
+            <div class="form-group">
+                <label class="form-label">Deal 1 Description (NL)</label>
+                <textarea name="deal1_desc" class="form-control" rows="2">{{ old('deal1_desc', $type->deal1_desc) }}</textarea>
+            </div>
+            <div class="form-group">
+                <label class="form-label">Deal 1 Description (EN)</label>
+                <textarea name="deal1_desc_en" class="form-control" rows="2">{{ old('deal1_desc_en', $type->deal1_desc_en) }}</textarea>
+            </div>
+            <div class="form-group">
+                <label class="form-label">Deal 1 Description (FR)</label>
+                <textarea name="deal1_desc_fr" class="form-control" rows="2">{{ old('deal1_desc_fr', $type->deal1_desc_fr) }}</textarea>
+            </div>
+            <div class="form-group">
+                <label class="form-label">Deal 1 Description (DE)</label>
+                <textarea name="deal1_desc_de" class="form-control" rows="2">{{ old('deal1_desc_de', $type->deal1_desc_de) }}</textarea>
+            </div>
+            <div class="form-group">
+                <label class="form-label">Deal 1 Image Path</label>
+                <input type="text" name="deal1_image" class="form-control" value="{{ old('deal1_image', $type->deal1_image) }}" placeholder="e.g. assets/web/images/deal1.png">
+            </div>
+
+            {{-- Deal 2 --}}
+            <div class="form-group">
+                <label class="form-label">Deal 2 Name (NL)</label>
+                <input type="text" name="deal2_name" class="form-control" value="{{ old('deal2_name', $type->deal2_name) }}">
+            </div>
+            <div class="form-group">
+                <label class="form-label">Deal 2 Name (EN)</label>
+                <input type="text" name="deal2_name_en" class="form-control" value="{{ old('deal2_name_en', $type->deal2_name_en) }}">
+            </div>
+            <div class="form-group">
+                <label class="form-label">Deal 2 Name (FR)</label>
+                <input type="text" name="deal2_name_fr" class="form-control" value="{{ old('deal2_name_fr', $type->deal2_name_fr) }}">
+            </div>
+            <div class="form-group">
+                <label class="form-label">Deal 2 Name (DE)</label>
+                <input type="text" name="deal2_name_de" class="form-control" value="{{ old('deal2_name_de', $type->deal2_name_de) }}">
+            </div>
+            <div class="form-group">
+                <label class="form-label">Deal 2 Description (NL)</label>
+                <textarea name="deal2_desc" class="form-control" rows="2">{{ old('deal2_desc', $type->deal2_desc) }}</textarea>
+            </div>
+            <div class="form-group">
+                <label class="form-label">Deal 2 Description (EN)</label>
+                <textarea name="deal2_desc_en" class="form-control" rows="2">{{ old('deal2_desc_en', $type->deal2_desc_en) }}</textarea>
+            </div>
+            <div class="form-group">
+                <label class="form-label">Deal 2 Description (FR)</label>
+                <textarea name="deal2_desc_fr" class="form-control" rows="2">{{ old('deal2_desc_fr', $type->deal2_desc_fr) }}</textarea>
+            </div>
+            <div class="form-group">
+                <label class="form-label">Deal 2 Description (DE)</label>
+                <textarea name="deal2_desc_de" class="form-control" rows="2">{{ old('deal2_desc_de', $type->deal2_desc_de) }}</textarea>
+            </div>
+            <div class="form-group">
+                <label class="form-label">Deal 2 Image Path</label>
+                <input type="text" name="deal2_image" class="form-control" value="{{ old('deal2_image', $type->deal2_image) }}" placeholder="e.g. assets/web/images/deal2.png">
+            </div>
+
+            {{-- Deal 3 --}}
+            <div class="form-group">
+                <label class="form-label">Deal 3 Name (NL)</label>
+                <input type="text" name="deal3_name" class="form-control" value="{{ old('deal3_name', $type->deal3_name) }}">
+            </div>
+            <div class="form-group">
+                <label class="form-label">Deal 3 Name (EN)</label>
+                <input type="text" name="deal3_name_en" class="form-control" value="{{ old('deal3_name_en', $type->deal3_name_en) }}">
+            </div>
+            <div class="form-group">
+                <label class="form-label">Deal 3 Name (FR)</label>
+                <input type="text" name="deal3_name_fr" class="form-control" value="{{ old('deal3_name_fr', $type->deal3_name_fr) }}">
+            </div>
+            <div class="form-group">
+                <label class="form-label">Deal 3 Name (DE)</label>
+                <input type="text" name="deal3_name_de" class="form-control" value="{{ old('deal3_name_de', $type->deal3_name_de) }}">
+            </div>
+            <div class="form-group">
+                <label class="form-label">Deal 3 Description (NL)</label>
+                <textarea name="deal3_desc" class="form-control" rows="2">{{ old('deal3_desc', $type->deal3_desc) }}</textarea>
+            </div>
+            <div class="form-group">
+                <label class="form-label">Deal 3 Description (EN)</label>
+                <textarea name="deal3_desc_en" class="form-control" rows="2">{{ old('deal3_desc_en', $type->deal3_desc_en) }}</textarea>
+            </div>
+            <div class="form-group">
+                <label class="form-label">Deal 3 Description (FR)</label>
+                <textarea name="deal3_desc_fr" class="form-control" rows="2">{{ old('deal3_desc_fr', $type->deal3_desc_fr) }}</textarea>
+            </div>
+            <div class="form-group">
+                <label class="form-label">Deal 3 Description (DE)</label>
+                <textarea name="deal3_desc_de" class="form-control" rows="2">{{ old('deal3_desc_de', $type->deal3_desc_de) }}</textarea>
+            </div>
+            <div class="form-group">
+                <label class="form-label">Deal 3 Image Path</label>
+                <input type="text" name="deal3_image" class="form-control" value="{{ old('deal3_image', $type->deal3_image) }}" placeholder="e.g. assets/web/images/deal3.png">
+            </div>
+
             <button type="submit" class="action-button">
                 {{ $type->exists ? 'Update Landing Type' : 'Save Landing Type' }}
             </button>
