@@ -514,7 +514,7 @@ $webset = \App\Models\Websetting::first();
                 </ul>
             </div>
             @endif
-            <a class="mobile-consl" href="{{ route('home.landing') }}" class="button">{{ __('web.buttons.get_free_consultation') }}</a>
+            <a class="mobile-consl" href="{{ route('contact-us') }}" class="button">{{ __('web.buttons.get_free_consultation') }}</a>
         </div>
 
         <div class="Mobile-headers">

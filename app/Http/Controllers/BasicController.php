@@ -255,16 +255,17 @@ class BasicController extends Controller
         $serviceIds = $services->pluck('id')->toArray();
 
         // Fetch all technologies assigned via pivot service_technologies table for these services
-        $technologies = \App\Models\Technology::whereHas('services', function($q) use ($serviceIds) {
+        $technologies = \App\Models\Technology::whereHas('services', function ($q) use ($serviceIds) {
             $q->whereIn('services.id', $serviceIds);
         })->get();
 
-        $portfolios = \App\Models\Portfolio::whereHas('services', function($q) use ($serviceIds) {
+        $portfolios = \App\Models\Portfolio::whereHas('services', function ($q) use ($serviceIds) {
             $q->whereIn('services.id', $serviceIds);
         })->get();
         $formLabels = LandingFormLabel::first();
+        $websetting = Websetting::first();
 
-        return view('web.landing_service_type', compact('servicesupdate', 'technologies', 'aideals', 'services', 'landingTypes', 'portfolios','formLabels'));
+        return view('web.landing_service_type', compact('servicesupdate', 'technologies', 'aideals', 'services', 'landingTypes', 'portfolios', 'formLabels', 'serviceType', 'websetting'));
     }
 
     public function landingServicePage($slug)

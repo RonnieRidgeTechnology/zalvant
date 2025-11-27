@@ -1,4 +1,12 @@
 @extends('layouts.web')
+@php
+    $contactPhone = $webset->phone ?? '31687876543';
+    $normalizedPhone = preg_replace('/\D+/', '', $contactPhone);
+    $whatsMessage = $webset->whatsapp_text ?? 'Hello! I visited your website.';
+    $encodedWhatsMessage = rawurlencode($whatsMessage);
+    $whatsappUrl = $normalizedPhone ? 'https://api.whatsapp.com/send?phone=' . $normalizedPhone . '&text=' . $encodedWhatsMessage : '#';
+    $callUrl = $normalizedPhone ? 'tel:+' . $normalizedPhone : '#';
+@endphp
 <style>
     .mobile-consl {
         display: none;
@@ -9,23 +17,40 @@
         margin-top: 20px;
     }
 
-    .mobile-sub-services {
-        list-style: none;
-        padding-left: 15px;
-        margin-top: 6px;
-        display: flex;
-        flex-direction: column;
-        gap: 4px;
-    }
-
-    .mobile-sub-services li a {
-        font-size: 14px;
+    .header-action-button {
+        width: 46px;
+        height: 46px;
+        border-radius: 50%;
+        border: 1px solid rgba(255, 255, 255, 0.25);
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
         color: #fff;
-        opacity: 0.85;
+        background: rgba(255, 255, 255, 0.08);
+        transition: transform 0.2s ease, border-color 0.2s ease, background 0.2s ease;
+        text-decoration: none;
     }
 
-    .mobile-sub-services li a:hover {
-        opacity: 1;
+    .header-action-button svg {
+        width: 20px;
+        height: 20px;
+    }
+
+    .header-action-button:hover {
+        transform: translateY(-2px);
+        border-color: rgba(255, 255, 255, 0.45);
+    }
+
+    .header-action-button.whatsapp {
+        background: linear-gradient(135deg, #1fa463, #25D366);
+        border: none;
+        margin-top: 15px;
+    }
+
+    .header-action-button.call {
+        background: linear-gradient(135deg, #0f6bff, #3ea6ff);
+        border: none;
+        margin-top: 15px;
     }
 
     .service-banner {
@@ -575,7 +600,7 @@
 </style>
 <style>
     /* Custom header navigation for landing service type page */
-    header:has(.landing-types-nav) {
+    header:has(.landing-type-select) {
         display: flex !important;
         align-items: center;
         justify-content: space-between;
@@ -588,7 +613,7 @@
     }
 
     /* Ensure logo doesn't overlap navigation */
-    header:has(.landing-types-nav) .logo {
+    header:has(.landing-type-select) .logo {
         flex-shrink: 0;
         z-index: 1;
         position: relative;
@@ -597,22 +622,22 @@
     }
 
     /* Ensure header-btn (language/consultation) doesn't overlap */
-    header:has(.landing-types-nav) .header-btn {
+    header:has(.landing-type-select) .header-btn {
         flex-shrink: 0;
         z-index: 10;
         position: relative;
     }
 
     /* Hide regular nav-menu completely when custom nav is present - multiple selectors to ensure it works */
-    header:has(.landing-types-nav) .nav-menu,
-    header .landing-types-nav~.nav-menu,
-    body:has(.landing-types-nav) header .nav-menu,
-    body:has(.landing-types-nav) .nav-menu,
+    header:has(.landing-type-select) .nav-menu,
+    header .landing-type-select~.nav-menu,
+    body:has(.landing-type-select) header .nav-menu,
+    body:has(.landing-type-select) .nav-menu,
     body.has-landing-types-nav header .nav-menu,
     body.has-landing-types-nav .nav-menu,
-    .landing-types-nav~.nav-menu,
-    header .landing-types-nav+.nav-menu,
-    header .nav-menu:has(~ .landing-types-nav),
+    .landing-type-select~.nav-menu,
+    header .landing-type-select+.nav-menu,
+    header .nav-menu:has(~ .landing-type-select),
     header .nav-menu.hidden-on-landing-page {
         display: none !important;
         visibility: hidden !important;
@@ -628,160 +653,99 @@
     }
 
     /* Additional override for any inline styles */
-    header .landing-types-nav~.nav-menu {
+    header .landing-type-select~.nav-menu {
         display: none !important;
     }
 
-    /* Landing Types Navigation */
-    .landing-types-nav {
+    /* Landing type dropdown trigger */
+    .landing-type-select {
         display: flex !important;
         align-items: center;
-        gap: 12px;
-        flex: 1 1 0;
-        justify-content: center;
-        margin-left: 0px !important;
-        margin-right: 30px !important;
-        margin-top: 19px;
-        min-width: 0;
-        overflow-x: auto;
-        overflow-y: visible;
+        flex: 1 1 auto;
+        margin: 0 30px;
         position: relative;
         z-index: 10;
-        padding-left: 475px;
-    }
-
-    /* Ensure all items in nav are visible */
-    .landing-types-nav .landing-type-item {
-        display: flex !important;
-        visibility: visible !important;
-        opacity: 1 !important;
-        position: relative !important;
-    }
-
-    .landing-types-nav::-webkit-scrollbar {
-        display: none;
-    }
-
-    .landing-type-item {
-        position: relative;
-        flex-shrink: 0;
-        z-index: 10;
-        visibility: visible !important;
-        opacity: 1 !important;
+        margin-top: 12px;
     }
 
     .landing-type-trigger {
         background: rgba(255, 255, 255, 0.1);
         border: 1px solid rgba(255, 255, 255, 0.3);
-        color: white;
-        padding: 8px 16px;
-        border-radius: 8px;
+        color: #fff;
+        padding: 10px 20px;
+        border-radius: 999px;
         cursor: pointer;
-        display: flex;
+        display: inline-flex;
         align-items: center;
-        gap: 6px;
-        font-size: 14px;
-        font-weight: 500;
-        transition: all 0.2s ease;
-        text-decoration: none;
-        white-space: nowrap;
+        gap: 10px;
+        font-size: 16px;
+        font-weight: 600;
+        transition: background 0.2s ease, border-color 0.2s ease;
+        min-width: 220px;
+        justify-content: center;
     }
 
-    .landing-type-trigger:hover {
-        background: rgba(255, 255, 255, 0.15);
-        border-color: rgba(255, 255, 255, 0.5);
+    .landing-type-trigger:hover,
+    .landing-type-select.open .landing-type-trigger {
+        background: rgba(255, 255, 255, 0.18);
+        border-color: rgba(255, 255, 255, 0.6);
     }
 
     .landing-type-trigger svg {
-        transition: transform 0.3s ease;
-        width: 14px;
-        height: 14px;
-        flex-shrink: 0;
+        width: 16px;
+        height: 16px;
+        transition: transform 0.2s ease;
     }
 
-    .landing-type-item.active .landing-type-trigger svg {
+    .landing-type-select.open .landing-type-trigger svg {
         transform: rotate(180deg);
     }
 
-    /* Dropdown container - hidden, dropdowns are positioned absolutely */
-    #landing-type-dropdowns-container {
+    .landing-type-options {
         position: absolute;
-        top: 0;
-        left: 0;
-        width: 0;
-        height: 0;
-        overflow: visible;
-        pointer-events: none;
-        z-index: 0;
-    }
-
-    /* Dropdown - positioned outside navbar using fixed positioning */
-    .landing-type-dropdown {
-        display: none;
-        position: fixed;
-        background: white;
-        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
-        border-radius: 12px;
-        min-width: 220px;
-        max-width: 300px;
-        z-index: 10000;
+        top: calc(100% + 14px);
+        left: 19%;
+        transform: translateX(-50%);
+        background: rgba(5, 8, 45, 0.98);
+        border: 1px solid rgba(255, 255, 255, 0.15);
+        border-radius: 16px;
         padding: 8px 0;
-        opacity: 0;
-        visibility: hidden;
-        transform: translateY(-10px);
-        transition: opacity 0.2s ease, transform 0.2s ease, visibility 0.2s ease;
-        max-height: 400px;
-        overflow-y: auto;
-        pointer-events: none;
-        top: 105px !important;
-    }
-
-    .landing-type-dropdown.show {
-        display: block !important;
-        opacity: 1 !important;
-        visibility: visible !important;
-        transform: translateY(0) !important;
-        pointer-events: auto !important;
-    }
-
-    .landing-type-dropdown ul {
         list-style: none;
         margin: 0;
-        padding: 0;
+        min-width: 260px;
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.35);
+        display: none;
+        max-height: 320px;
+        overflow-y: auto;
+        backdrop-filter: blur(8px);
     }
 
-    .landing-type-dropdown li {
-        margin: 0;
-    }
-
-    .landing-type-dropdown a {
+    .landing-type-select.open .landing-type-options {
         display: block;
-        padding: 10px 16px;
-        color: #333;
+    }
+
+    .landing-type-options li a {
+        display: block;
+        padding: 10px 18px;
+        color: #fff;
         text-decoration: none;
-        transition: background 0.2s;
-        font-size: 14px;
+        font-size: 15px;
+        font-weight: 500;
+        transition: background 0.2s ease;
+        white-space: nowrap;
     }
 
-    .landing-type-dropdown a:hover {
-        background: #f5f5f5;
-        color: #2950B1;
+    .landing-type-options li a:hover {
+        background: rgba(255, 255, 255, 0.08);
     }
 
-    .landing-type-dropdown .no-services {
-        padding: 12px 16px;
-        color: #999;
-        font-size: 13px;
-        font-style: italic;
-    }
-
-    /* Mobile responsive */
+    /* Hide desktop nav menu on mobile */
     @media (max-width: 1024px) {
-        .landing-types-nav {
+        .landing-type-select {
             display: none !important;
         }
 
-        header:has(.landing-types-nav) .nav-menu {
+        header:has(.landing-type-select) .nav-menu {
             display: block !important;
         }
     }
@@ -1034,194 +998,79 @@
 </style>
 <script>
     document.addEventListener('DOMContentLoaded', function() {
-        // Hide regular nav-menu when landing-types-nav is present
-        const landingNav = document.querySelector('.landing-types-nav');
-        if (landingNav) {
-            // Add class to body for CSS targeting
-            document.body.classList.add('has-landing-types-nav');
-
-            // Hide all nav-menu elements
-            const navMenus = document.querySelectorAll('header .nav-menu');
-            navMenus.forEach(function(navMenu) {
-                navMenu.style.display = 'none';
-                navMenu.style.visibility = 'hidden';
-                navMenu.style.opacity = '0';
-                navMenu.style.position = 'absolute';
-                navMenu.style.left = '-9999px';
-                navMenu.style.width = '0';
-                navMenu.style.height = '0';
-                navMenu.style.overflow = 'hidden';
-                navMenu.style.pointerEvents = 'none';
-                navMenu.style.margin = '0';
-                navMenu.style.padding = '0';
-            });
-
-            // Also hide using class
-            navMenus.forEach(function(navMenu) {
-                navMenu.classList.add('hidden-on-landing-page');
-            });
+        const landingSelect = document.querySelector('.landing-type-select');
+        if (!landingSelect) {
+            return;
         }
 
-        // Dropdown functionality with JavaScript - Hover based
-        const dropdownTriggers = document.querySelectorAll('.landing-type-trigger[data-dropdown-id]');
-        const dropdowns = document.querySelectorAll('.landing-type-dropdown');
-        let activeDropdown = null;
-        let activeTrigger = null;
-        let hoverTimeout = null;
-        let repositionHandlers = [];
+        // Hide regular nav-menu when landing type dropdown is present
+        document.body.classList.add('has-landing-types-nav');
+        const navMenus = document.querySelectorAll('header .nav-menu');
+        navMenus.forEach(function(navMenu) {
+            navMenu.style.display = 'none';
+            navMenu.style.visibility = 'hidden';
+            navMenu.style.opacity = '0';
+            navMenu.style.position = 'absolute';
+            navMenu.style.left = '-9999px';
+            navMenu.style.width = '0';
+            navMenu.style.height = '0';
+            navMenu.style.overflow = 'hidden';
+            navMenu.style.pointerEvents = 'none';
+            navMenu.style.margin = '0';
+            navMenu.style.padding = '0';
+            navMenu.classList.add('hidden-on-landing-page');
+        });
 
-        // Function to position dropdown relative to its trigger
-        function positionDropdown(trigger, dropdown) {
-            const triggerRect = trigger.getBoundingClientRect();
+        const trigger = landingSelect.querySelector('.landing-type-trigger');
+        const options = landingSelect.querySelector('.landing-type-options');
 
-            // Position dropdown below the trigger with a small gap for easier mouse movement
-            let top = triggerRect.bottom + 12;
-            let left = triggerRect.left;
-
-            // Set position first to get actual dimensions
-            dropdown.style.top = top + 'px';
-            dropdown.style.left = left + 'px';
-
-            // Get dimensions after positioning
-            const dropdownRect = dropdown.getBoundingClientRect();
-
-            // Adjust if dropdown would go off screen to the right
-            if (left + dropdownRect.width > window.innerWidth) {
-                left = window.innerWidth - dropdownRect.width - 10;
-            }
-
-            // Adjust if dropdown would go off screen to the left
-            if (left < 10) {
-                left = 10;
-            }
-
-            // Adjust if dropdown would go off screen at the bottom
-            if (top + dropdownRect.height > window.innerHeight) {
-                top = triggerRect.top - dropdownRect.height - 8;
-            }
-
-            dropdown.style.top = top + 'px';
-            dropdown.style.left = left + 'px';
+        if (!trigger || !options) {
+            return;
         }
 
-        // Function to remove reposition handlers
-        function removeRepositionHandlers() {
-            repositionHandlers.forEach(function(handler) {
-                window.removeEventListener('scroll', handler, true);
-                window.removeEventListener('resize', handler);
-            });
-            repositionHandlers = [];
-        }
-
-        // Function to close all dropdowns
-        function closeAllDropdowns() {
-            if (hoverTimeout) {
-                clearTimeout(hoverTimeout);
-                hoverTimeout = null;
+        const toggleDropdown = function(forceClose = false) {
+            if (forceClose || landingSelect.classList.contains('open')) {
+                landingSelect.classList.remove('open');
+            } else {
+                landingSelect.classList.add('open');
             }
-            dropdowns.forEach(function(dropdown) {
-                dropdown.classList.remove('show');
-            });
-            document.querySelectorAll('.landing-type-item').forEach(function(item) {
-                item.classList.remove('active');
-            });
-            removeRepositionHandlers();
-            activeDropdown = null;
-            activeTrigger = null;
-        }
+        };
 
-        // Function to show dropdown
-        function showDropdown(trigger, dropdown, item) {
-            // Clear any pending close timeout
-            if (hoverTimeout) {
-                clearTimeout(hoverTimeout);
-                hoverTimeout = null;
-            }
+        trigger.addEventListener('click', function(e) {
+            e.preventDefault();
+            toggleDropdown();
+        });
 
-            // Close all other dropdowns
-            if (activeDropdown !== dropdown) {
-                closeAllDropdowns();
-            }
-
-            // Show and position the dropdown
-            activeDropdown = dropdown;
-            activeTrigger = trigger;
-            item.classList.add('active');
-            dropdown.classList.add('show');
-
-            // Position the dropdown
-            positionDropdown(trigger, dropdown);
-
-            // Reposition on scroll or resize
-            const reposition = function() {
-                if (dropdown.classList.contains('show') && activeTrigger) {
-                    positionDropdown(activeTrigger, dropdown);
-                }
-            };
-
-            window.addEventListener('scroll', reposition, true);
-            window.addEventListener('resize', reposition);
-            repositionHandlers.push(reposition);
-        }
-
-        // Handle hover on triggers and items
-        dropdownTriggers.forEach(function(trigger) {
-            const dropdownId = trigger.getAttribute('data-dropdown-id');
-            const dropdown = document.getElementById(dropdownId);
-            const item = trigger.closest('.landing-type-item');
-
-            if (!dropdown) return;
-
-            // Show dropdown on hover over trigger/item
-            item.addEventListener('mouseenter', function() {
-                showDropdown(trigger, dropdown, item);
-            });
-
-            // Keep dropdown open when hovering over it
-            dropdown.addEventListener('mouseenter', function() {
-                if (hoverTimeout) {
-                    clearTimeout(hoverTimeout);
-                    hoverTimeout = null;
-                }
-                // Ensure dropdown stays open
-                if (activeDropdown !== dropdown) {
-                    showDropdown(trigger, dropdown, item);
-                }
-            });
-
-            // Close dropdown when mouse leaves item
-            item.addEventListener('mouseleave', function(e) {
-                // Check if mouse is moving to dropdown
-                const relatedTarget = e.relatedTarget;
-                if (relatedTarget && dropdown.contains(relatedTarget)) {
-                    return; // Don't close if moving to dropdown
-                }
-
-                // Small delay to allow moving to dropdown
-                hoverTimeout = setTimeout(function() {
-                    // Check if mouse is still over dropdown or item
-                    if (!dropdown.matches(':hover') && !item.matches(':hover')) {
-                        closeAllDropdowns();
-                    }
-                }, 150);
-            });
-
-            // Close dropdown when mouse leaves dropdown
-            dropdown.addEventListener('mouseleave', function(e) {
-                const relatedTarget = e.relatedTarget;
-                // Check if moving back to item or trigger
-                if (relatedTarget && (item.contains(relatedTarget) || trigger.contains(relatedTarget))) {
-                    return; // Don't close if moving back to item
-                }
-
-                hoverTimeout = setTimeout(function() {
-                    // Check if mouse is still over dropdown or item
-                    if (!dropdown.matches(':hover') && !item.matches(':hover')) {
-                        closeAllDropdowns();
-                    }
-                }, 150);
+        options.querySelectorAll('a').forEach(function(link) {
+            link.addEventListener('click', function() {
+                toggleDropdown(true);
             });
         });
+
+        document.addEventListener('click', function(e) {
+            if (!landingSelect.contains(e.target)) {
+                toggleDropdown(true);
+            }
+        });
+
+        // Inject WhatsApp & call buttons next to language selector
+        const headerBtn = document.querySelector('header .header-btn');
+        if (headerBtn && !headerBtn.querySelector('.header-whatsapp-button')) {
+            const whatsappBtn = document.createElement('a');
+            whatsappBtn.href = <?php echo json_encode($whatsappUrl); ?>;
+            whatsappBtn.target = '_blank';
+            whatsappBtn.rel = 'noopener';
+            whatsappBtn.className = 'header-action-button whatsapp header-whatsapp-button';
+            whatsappBtn.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-brand-whatsapp"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M3 21l1.65 -3.8a9 9 0 1 1 3.4 2.9l-5.05 .9" /><path d="M9 10a.5 .5 0 0 0 1 0v-1a.5 .5 0 0 0 -1 0v1a5 5 0 0 0 5 5h1a.5 .5 0 0 0 0 -1h-1a.5 .5 0 0 0 0 1" /></svg>`;
+ 
+            const callBtn = document.createElement('a');
+            callBtn.href = <?php echo json_encode($callUrl); ?>;
+            callBtn.className = 'header-action-button call header-call-button';
+            callBtn.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-phone-ringing"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M20 4l-2 2" /><path d="M22 10.5l-2.5 -.5" /><path d="M13.5 2l.5 2.5" /><path d="M5 4h4l2 5l-2.5 1.5a11 11 0 0 0 5 5l1.5 -2.5l5 2v4a2 2 0 0 1 -2 2c-8.072 -.49 -14.51 -6.928 -15 -15a2 2 0 0 1 2 -2" /></svg>`;
+
+            headerBtn.insertBefore(callBtn, headerBtn.firstChild);
+            headerBtn.insertBefore(whatsappBtn, callBtn);
+        }
     });
 </script>
 @php
@@ -1231,17 +1080,7 @@
             $menuItem = [
                 'name' => $landingType->getLocalizedName(),
                 'url' => route('landing.type', $landingType->slug),
-                'dropdown' => [],
             ];
-
-            if ($landingType->services_list && $landingType->services_list->count() > 0) {
-                foreach ($landingType->services_list as $service) {
-                    $menuItem['dropdown'][] = [
-                        'name' => $service->getLocalizedName(),
-                        'url' => route('landing.service', $service->slug),
-                    ];
-                }
-            }
 
             $landingTypeMenu[] = $menuItem;
         }
@@ -1252,7 +1091,7 @@
         const landingTypeLinks = <?php echo json_encode($landingTypeMenu); ?>;
 
         const mobileSidebar = document.getElementById('mobileSidebar');
-        const landingNavExists = document.querySelector('.landing-types-nav');
+        const landingNavExists = document.querySelector('.landing-type-select');
 
         if (landingNavExists && mobileSidebar && landingTypeLinks.length) {
             const list = mobileSidebar.querySelector('ul');
@@ -1266,21 +1105,6 @@
                     anchor.textContent = item.name;
                     li.appendChild(anchor);
 
-                    // If the landing type has services, nest them as a sub list (accordion-style)
-                    // if (item.dropdown && item.dropdown.length) {
-                    //     const subList = document.createElement('ul');
-                    //     subList.classList.add('mobile-sub-services');
-                    //     item.dropdown.forEach(function(service) {
-                    //         const serviceLi = document.createElement('li');
-                    //         const serviceAnchor = document.createElement('a');
-                    //         serviceAnchor.href = service.url;
-                    //         serviceAnchor.textContent = service.name;
-                    //         serviceLi.appendChild(serviceAnchor);
-                    //         subList.appendChild(serviceLi);
-                    //     });
-                    //     li.appendChild(subList);
-                    // }
-
                     list.appendChild(li);
                 });
             }
@@ -1293,49 +1117,27 @@
 
 
 @push('custom-header-nav')
-<div class="landing-types-nav">
-
-    @if(isset($landingTypes) && $landingTypes->count() > 0)
-    @foreach($landingTypes as $index => $landingType)
-    <div class="landing-type-item" data-item-index="{{ $index }}">
-        @if($landingType->services_list && $landingType->services_list->count() > 0)
-        <a href="{{ route('landing.type', $landingType->slug) }}" class="landing-type-trigger" data-dropdown-id="dropdown-{{ $index }}">
-            <span>{{ $landingType->getLocalizedName() }}</span>
-            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <polyline points="6 9 12 15 18 9"></polyline>
-            </svg>
-        </a>
-        @else
-        <a href="{{ route('landing.type', $landingType->slug) }}" class="landing-type-trigger">
-            <span>{{ $landingType->getLocalizedName() }}</span>
-        </a>
-        @endif
-    </div>
-    @endforeach
-    @endif
+@if(isset($landingTypes) && $landingTypes->count() > 0)
+@php
+    $currentLandingTypeName = isset($serviceType) ? $serviceType->getLocalizedName() : (isset($landingTypes[0]) ? $landingTypes[0]->getLocalizedName() : __('Select Landing Type'));
+@endphp
+<div class="landing-type-select">
+    <button type="button" class="landing-type-trigger">
+        <span>{{ $currentLandingTypeName }}</span>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polyline points="6 9 12 15 18 9"></polyline>
+        </svg>
+    </button>
+    <ul class="landing-type-options">
+        @foreach($landingTypes as $landingType)
+        <li>
+            <a href="{{ route('landing.type', $landingType->slug) }}">{{ $landingType->getLocalizedName() }}</a>
+        </li>
+        @endforeach
+    </ul>
 </div>
+@endif
 @endpush
-
-{{-- Dropdowns placed outside navbar to avoid CSS conflicts --}}
-<div id="landing-type-dropdowns-container">
-    @if(isset($landingTypes) && $landingTypes->count() > 0)
-    @foreach($landingTypes as $index => $landingType)
-    @if($landingType->services_list && $landingType->services_list->count() > 0)
-    <div class="landing-type-dropdown" id="dropdown-{{ $index }}" data-trigger-index="{{ $index }}">
-        <ul>
-            @foreach($landingType->services_list as $service)
-            <li>
-                <a href="{{ route('landing.service', $service->slug) }}">
-                    {{ $service->getLocalizedName() }}
-                </a>
-            </li>
-            @endforeach
-        </ul>
-    </div>
-    @endif
-    @endforeach
-    @endif
-</div>
 
 @section('content')
 <!--<div class="service-banner">-->
@@ -1400,7 +1202,7 @@
                 @csrf
                 <!-- Language switch removed -->
                 <div class="zalvant-form-note" id="zalvant-form-note">
-                    <span>{{ $formLabels?->getLocalizedRequiredNote() ?? 'Velden gemarkeerd met * zijn vereist.' }}</span>
+                    <span style="color: #b3c7f7;;">{{ $formLabels?->getLocalizedRequiredNote() ?? 'Velden gemarkeerd met * zijn vereist.' }}</span>
                 </div>
                 <div class="zalvant-form-group">
                     <label for="name">
@@ -1483,52 +1285,6 @@
         </div>
 </div>
 </section>
-<div class="service-banner service-bannerrs2">
-    <div class="small-service ui-design">
-        <div class="service-icon">
-            <img src="{{ asset('assets/web/images/imgi_21_1748870857-683da6c9ce7ed.png') }}" alt="imgi">
-        </div>
-        {{ __('web.service_types.ui_design') }}
-    </div>
-    <div class="small-service web-design">
-        <div class="service-icon">
-            <img src="{{ asset('assets/web/images/desktop.png') }}" alt="desktop">
-        </div>
-        {{ __('web.service_types.web_design') }}
-    </div>
-    <div class="small-service ai-dev">
-        <div class="service-icon">
-            <img src="{{ asset('assets/web/images/imgi_21_1748870857-683da6c9ce7ed.png') }}" alt="imgi">
-        </div>
-        {{ __('web.service_types.ai_development') }}
-    </div>
-    <div class="small-service social-media">
-        <div class="service-icon">
-            <img src="{{ asset('assets/web/images/Rocket.png') }}" alt="Rocket">
-        </div>
-        {{ __('web.service_types.social_media') }}
-    </div>
-    <div class="small-service mobile-app">
-        <div class="service-icon">
-            <img src="{{ asset('assets/web/images/imgi_6_Mobile.png') }}" alt="imgi">
-        </div>
-        {{ __('web.service_types.mobile_app') }}
-    </div>
-    <div class="curveborder">
-        <img src="https://azeetechnology.com/assets/web/images/border-curve.png" class="" alt="border-curve">
-        <div class="dot dot1"></div>
-        <div class="dot dot2"></div>
-        <div class="dot dot3"></div>
-        <div class="dot dot4"></div>
-        <div class="dot dot5"></div>
-    </div>
-
-    <div class="logo-container">
-        <div class="service-logo">
-            <img src="https://zalvant.com/assets/web/images/Group_1000006059-removebg-preview.png" alt="preview">
-        </div>
-    </div>
-</div>
 </div>
 <div class="about-section">
     <div class="description">
@@ -1617,12 +1373,7 @@
                 <img src="{{ asset('assets/web/images/Rlogo.png') }}" alt="Rlogo">
                 <p>Top Services</p>
             </div>
-            <div class="bannerText">
-                <h1>{{ $service->getLocalizedPortfolioTitle() }}</h1>
-                <p style="line-height: 30px; margin: 0;">
-                    {{ $service->getLocalizedPortfolioDescription() }}
-                </p>
-            </div>
+          
         </div>
         <div class="blogs-card-main">
             @foreach ($portfolios as $index => $portfolio)

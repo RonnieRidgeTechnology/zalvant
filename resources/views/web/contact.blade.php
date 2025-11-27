@@ -72,21 +72,25 @@ select option{
                 <img src="{{ asset('assets/web/images/messege.png') }}" alt="messege">
             </div>
             <h4>{{ __('web.contact.call_us') }}</h4>
-            <p>+{{ $websetting->phone }}</p>
+            <p><a href="tel:+{{ $websetting->phone }}">+{{ $websetting->phone }}</a></p>
         </div>
         <div class="contact-card">
             <div class="icon">
                 <img src="{{ asset('assets/web/images/Group 30.png') }}" alt="Group 30">
             </div>
             <h4>{{ __('web.contact.mail') }}</h4>
-            <p>{{ $websetting->email }}</p>
+            <p><a href="mailto:{{ $websetting->email }}">{{ $websetting->email }}</a></p>
         </div>
         <div class="contact-card">
             <div class="icon">
                 <img src="{{ asset('assets/web/images/pin.png') }}" alt="pin">
             </div>
             <h4>{{ __('web.contact.location') }}</h4>
-            <p>{{ $websetting->getLocalizedAddress() }}</p>
+            <p>
+                <a href="https://www.google.com/maps/search/?q={{ urlencode($websetting->getLocalizedAddress()) }}" target="_blank">
+                    {{ $websetting->getLocalizedAddress() }}
+                </a>
+            </p>
         </div>
     </div>
     <div class="contact-form">

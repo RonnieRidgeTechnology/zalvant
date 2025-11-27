@@ -394,7 +394,7 @@
                                 <div class="action-buttons">
                                     <button class="action-btn edit" data-toggle="modal" data-target="#addmodal"
                                         data-id="{{ $service->slug }}"
-                                        data-type="{{ $service->type }}"
+                                        data-type="{{ $service->landing_type_id }}"
                                         data-orderby="{{ $service->order_by }}"
                                         data-hero_image="{{ asset($service->hero_image) }}"
                                         data-icon="{{ asset($service->icon) }}"
@@ -468,7 +468,7 @@
                                     </button>
 
                                     <button class="action-btn view" data-toggle="modal" data-target="#viewModal"
-                                        data-type="{{ $service->type }}"
+                                        data-type="{{ $service->landing_type_id }}"
                                         data-orderby="{{ $service->order_by }}"
                                         data-hero_image="{{ asset($service->hero_image) }}"
                                         data-icon="{{ asset($service->icon) }}"
@@ -1252,7 +1252,7 @@
                 if (metaKeywordsDe) metaKeywordsDe.value = this.dataset.meta_keywords_de || '';
 
                 // Set the type select field
-                const typeSelect = document.getElementById("type");
+                const typeSelect = document.getElementById("landing_type_id");
                 if (typeSelect) typeSelect.value = this.dataset.type || '';
 
                 // Show existing images

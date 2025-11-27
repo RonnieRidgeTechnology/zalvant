@@ -366,7 +366,7 @@
            <h1 class="banner-title">{{ __('web.banner.title') }}</h1>
             <p class="banner-des">{{ __('web.banner.description') }}</p>
             <div class="banner-btns" style="margin-top: 30px;">
-                      <a href="{{ route('home.landing') }}" class="button">{{ __('web.buttons.get_free_consultation') }}</a>
+                      <a href="{{ route('contact-us') }}" class="button">{{ __('web.buttons.get_free_consultation') }}</a>
                      <a href="{{ route('portfolio') }}" class="button2">{{ __('web.buttons.our_portfolio') }}</a>
 
             </div>
