@@ -237,6 +237,8 @@ class BasicController extends Controller
     public function landingTypePage($type)
     {
         $servicesupdate = ServiceUpdate::first();
+        $homeupdate = HomeUpdate::first();
+        $testimonials = Testimonial::where('status', 1)->get();
         $aideals = AiDeal::where('status', 1)->latest()->get();
         // $technologies = Technology::where('status', 1)->latest()->get();
 
@@ -278,8 +280,9 @@ class BasicController extends Controller
         }
         $formLabels = LandingFormLabel::first();
         $websetting = Websetting::first();
+        $actionData = action::first();
 
-        return view('web.landing_service_type', compact('servicesupdate', 'technologies', 'aideals', 'services', 'landingTypes', 'portfolios', 'formLabels', 'serviceType', 'websetting'));
+        return view('web.landing_service_type', compact('actionData','homeupdate','testimonials','servicesupdate', 'technologies', 'aideals', 'services', 'landingTypes', 'portfolios', 'formLabels', 'serviceType', 'websetting'));
     }
 
     public function landingServicePage($slug)

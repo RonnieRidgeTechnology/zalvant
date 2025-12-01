@@ -1,11 +1,11 @@
 @extends('layouts.web')
 @php
-    $contactPhone = $webset->phone ?? '31687876543';
-    $normalizedPhone = preg_replace('/\D+/', '', $contactPhone);
-    $whatsMessage = $webset->whatsapp_text ?? 'Hello! I visited your website.';
-    $encodedWhatsMessage = rawurlencode($whatsMessage);
-    $whatsappUrl = $normalizedPhone ? 'https://api.whatsapp.com/send?phone=' . $normalizedPhone . '&text=' . $encodedWhatsMessage : '#';
-    $callUrl = $normalizedPhone ? 'tel:+' . $normalizedPhone : '#';
+$contactPhone = $webset->phone ?? '31687876543';
+$normalizedPhone = preg_replace('/\D+/', '', $contactPhone);
+$whatsMessage = $webset->whatsapp_text ?? 'Hello! I visited your website.';
+$encodedWhatsMessage = rawurlencode($whatsMessage);
+$whatsappUrl = $normalizedPhone ? 'https://api.whatsapp.com/send?phone=' . $normalizedPhone . '&text=' . $encodedWhatsMessage : '#';
+$callUrl = $normalizedPhone ? 'tel:+' . $normalizedPhone : '#';
 @endphp
 <style>
     .mobile-consl {
@@ -597,6 +597,210 @@
         top: 2%;
         left: 44%;
     }
+    
+    .heroActionA {
+        display: grid;
+        place-items: center;
+        padding: 56px 0px;
+        position: relative;
+        overflow: hidden;
+        isolation: isolate;
+        background:
+            radial-gradient(1200px 600px at 10% -10%, rgba(255, 255, 255, .10), transparent 60%),
+            radial-gradient(1000px 500px at 110% 110%, rgba(0, 74, 183, .35), transparent 40%),
+            linear-gradient(160deg, #004ab7 0%, #010034 100%);
+    }
+
+    .heroActionA::before,
+    .heroActionA::after {
+        content: "";
+        position: absolute;
+        width: 540px;
+        height: 540px;
+        border-radius: 50%;
+        filter: blur(80px);
+        opacity: .18;
+        z-index: -1;
+    }
+
+    .heroActionA::before {
+        background: #005fde;
+        top: -160px;
+        left: -120px;
+    }
+
+    .heroActionA::after {
+        background: #005fde;
+        bottom: -180px;
+        right: -120px;
+    }
+
+    .cardActionA {
+        width: 82%;
+        margin: auto;
+        background: linear-gradient(180deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.02));
+        backdrop-filter: saturate(160%) blur(12px);
+        border: 1px solid rgba(255, 255, 255, 0.16);
+        border-radius: 22px;
+        padding: 48px;
+        box-shadow: 0 40px 80px rgba(0, 0, 0, .45);
+        position: relative;
+        overflow: hidden;
+    }
+
+    .cardActionA::after {
+        content: "";
+        position: absolute;
+        inset: -1px;
+        pointer-events: none;
+        border-radius: inherit;
+        background: radial-gradient(800px 200px at 20% -20%, rgba(255, 255, 255, .20), transparent 35%),
+            radial-gradient(600px 160px at 120% 120%, rgba(0, 74, 183, .25), transparent 35%);
+        mask: linear-gradient(#000, #000) content-box, linear-gradient(#000, #000);
+        -webkit-mask: linear-gradient(#000, #000) content-box, linear-gradient(#000, #000);
+        padding: 1px;
+    }
+
+    .eyebrowActionA {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        justify-content: center;
+        font-weight: 600;
+        letter-spacing: .12em;
+        text-transform: uppercase;
+        font-size: 12px;
+        color: rgba(255, 255, 255, .8);
+    }
+
+    .eyebrowActionA .dotActionA {
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background: #004ab7;
+        box-shadow: 0 0 0 4px rgba(0, 74, 183, .25);
+    }
+
+    .headingActionA {
+        margin: 14px 0 12px;
+        font-size: 38;
+        line-height: 1.15;
+        font-weight: 700;
+        ;
+        background: linear-gradient(90deg, #ffffff 0%, #cfe0ff 45%, #8fb7ff 100%);
+        -webkit-background-clip: text;
+        background-clip: text;
+        text-align: center;
+        color: transparent;
+    }
+
+    .subActionA {
+        margin: 0 0 32px;
+        color: rgba(255, 255, 255, .85);
+        font-size: clamp(15px, 2.2vw, 18px);
+        line-height: 1.6;
+        text-align: center;
+        font-size: 14px;
+    }
+
+    .chipsActionA {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        margin-bottom: 18px;
+        justify-content: center;
+
+    }
+
+    .chipActionA {
+        padding: 6px 10px;
+        border-radius: 999px;
+        background: rgba(255, 255, 255, .08);
+        border: 1px solid rgba(255, 255, 255, .16);
+        font-size: 12px;
+        color: rgba(255, 255, 255, .9);
+    }
+
+    .actionsActionA {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 14px;
+        justify-content: center;
+    }
+
+    .btnActionA {
+        appearance: none;
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        padding: 14px 20px;
+        border-radius: 14px;
+        font-weight: 600;
+        border: 1px solid transparent;
+        cursor: pointer;
+        text-decoration: none;
+        position: relative;
+        overflow: hidden;
+        transition: transform .08s ease, box-shadow .25s ease, background .25s ease, color .25s ease, border-color .25s ease;
+        will-change: transform;
+    }
+
+    .btnActionA svg {
+        width: 18px;
+        height: 18px;
+    }
+
+    .btnActionA:active {
+        transform: translateY(1px);
+    }
+
+    .btnActionA .shineActionA {
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(120deg, transparent 0%, rgba(255, 255, 255, .4) 40%, transparent 60%);
+        transform: translateX(-120%);
+        transition: transform .6s ease;
+        pointer-events: none;
+    }
+
+    .btnActionA:hover .shineActionA {
+        transform: translateX(120%);
+    }
+
+    .btnPrimaryActionA {
+        background: #ffffff;
+        color: #010034;
+        box-shadow: 0 12px 28px rgba(0, 0, 0, .25), 0 0 0 1px rgba(255, 255, 255, .3) inset;
+    }
+
+    .btnPrimaryActionA:hover {
+        box-shadow: 0 16px 36px rgba(0, 0, 0, .35);
+    }
+
+    .btnGhostActionA {
+        background: transparent;
+        color: #ffffff;
+        border-color: rgba(255, 255, 255, .28);
+    }
+
+    .btnGhostActionA:hover {
+        background: rgba(255, 255, 255, .10);
+        border-color: rgba(255, 255, 255, .45);
+    }
+
+    .noteActionA {
+        margin-top: 14px;
+        font-size: 12px;
+        color: rgba(255, 255, 255, .65);
+        text-align: center;
+    }
+
+    @media (max-width: 520px) {
+        .cardActionA {
+            padding: 28px;
+            border-radius: 16px;
+        }
+    }
 </style>
 <style>
     /* Custom header navigation for landing service type page */
@@ -1062,7 +1266,7 @@
             whatsappBtn.rel = 'noopener';
             whatsappBtn.className = 'header-action-button whatsapp header-whatsapp-button';
             whatsappBtn.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-brand-whatsapp"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M3 21l1.65 -3.8a9 9 0 1 1 3.4 2.9l-5.05 .9" /><path d="M9 10a.5 .5 0 0 0 1 0v-1a.5 .5 0 0 0 -1 0v1a5 5 0 0 0 5 5h1a.5 .5 0 0 0 0 -1h-1a.5 .5 0 0 0 0 1" /></svg>`;
- 
+
             const callBtn = document.createElement('a');
             callBtn.href = <?php echo json_encode($callUrl); ?>;
             callBtn.className = 'header-action-button call header-call-button';
@@ -1074,17 +1278,17 @@
     });
 </script>
 @php
-    $landingTypeMenu = [];
-    if (isset($landingTypes) && $landingTypes->count() > 0) {
-        foreach ($landingTypes as $landingType) {
-            $menuItem = [
-                'name' => $landingType->getLocalizedName(),
-                'url' => route('landing.type', $landingType->slug),
-            ];
+$landingTypeMenu = [];
+if (isset($landingTypes) && $landingTypes->count() > 0) {
+foreach ($landingTypes as $landingType) {
+$menuItem = [
+'name' => $landingType->getLocalizedName(),
+'url' => route('landing.type', $landingType->slug),
+];
 
-            $landingTypeMenu[] = $menuItem;
-        }
-    }
+$landingTypeMenu[] = $menuItem;
+}
+}
 @endphp
 <script>
     document.addEventListener('DOMContentLoaded', function() {
@@ -1119,7 +1323,7 @@
 @push('custom-header-nav')
 @if(isset($landingTypes) && $landingTypes->count() > 0)
 @php
-    $currentLandingTypeName = isset($serviceType) ? $serviceType->getLocalizedName() : (isset($landingTypes[0]) ? $landingTypes[0]->getLocalizedName() : __('Select Landing Type'));
+$currentLandingTypeName = isset($serviceType) ? $serviceType->getLocalizedName() : (isset($landingTypes[0]) ? $landingTypes[0]->getLocalizedName() : __('Select Landing Type'));
 @endphp
 <div class="landing-type-select">
     <button type="button" class="landing-type-trigger">
@@ -1358,42 +1562,100 @@
     </div>
     <div class="aiservicesAll">
         @if(isset($serviceType))
-            @php
-                $dealCards = [
-                    [
-                        'name' => $serviceType->getLocalizedDeal1Name(),
-                        'desc' => $serviceType->getLocalizedDeal1Desc(),
-                        'image' => $serviceType->deal1_image,
-                    ],
-                    [
-                        'name' => $serviceType->getLocalizedDeal2Name(),
-                        'desc' => $serviceType->getLocalizedDeal2Desc(),
-                        'image' => $serviceType->deal2_image,
-                    ],
-                    [
-                        'name' => $serviceType->getLocalizedDeal3Name(),
-                        'desc' => $serviceType->getLocalizedDeal3Desc(),
-                        'image' => $serviceType->deal3_image,
-                    ],
-                ];
-            @endphp
+        @php
+        $dealCards = [
+        [
+        'name' => $serviceType->getLocalizedDeal1Name(),
+        'desc' => $serviceType->getLocalizedDeal1Desc(),
+        'image' => $serviceType->deal1_image,
+        ],
+        [
+        'name' => $serviceType->getLocalizedDeal2Name(),
+        'desc' => $serviceType->getLocalizedDeal2Desc(),
+        'image' => $serviceType->deal2_image,
+        ],
+        [
+        'name' => $serviceType->getLocalizedDeal3Name(),
+        'desc' => $serviceType->getLocalizedDeal3Desc(),
+        'image' => $serviceType->deal3_image,
+        ],
+        ];
+        @endphp
 
-            @foreach ($dealCards as $card)
-                @if (!empty($card['name']))
-                    <div class="aiservicescards">
-                        <div class="aiservicescardsimg">
-                            <img src="{{ !empty($card['image']) ? asset($card['image']) : asset('assets/web/images/aiservicescardsbg.png') }}" alt="image">
-                        </div>
-                        <div class="aiservicescardstext">
-                            <h1>{{ $card['name'] }}</h1>
-                            <p>{{ $card['desc'] }}</p>
-                        </div>
-                    </div>
-                @endif
-            @endforeach
+        @foreach ($dealCards as $card)
+        @if (!empty($card['name']))
+        <div class="aiservicescards">
+            <div class="aiservicescardsimg">
+                <img src="{{ !empty($card['image']) ? asset($card['image']) : asset('assets/web/images/aiservicescardsbg.png') }}" alt="image">
+            </div>
+            <div class="aiservicescardstext">
+                <h1>{{ $card['name'] }}</h1>
+                <p>{{ $card['desc'] }}</p>
+            </div>
+        </div>
+        @endif
+        @endforeach
         @endif
     </div>
 </div>
+<div class="real-stories">
+    <div class="ai-header">
+        <h1 class="ai-section-heading">{{ $homeupdate->getLocalizedRealStoriesTitle() }}</h1>
+        <p class="ai-section-text">{{ $homeupdate->getLocalizedRealStoriesDesc() }}</p>
+    </div>
+    <div class="testimonialContainer">
+        <div class="testimonialTrack">
+            <div class="testimonialRow" id="testimonialRow">
+                @foreach ($testimonials as $testimonial)
+                <div class='testimonialCard'>
+                    <div class='testimonialAuthor'>
+                        <div class='authorInfo'>
+                            <h4>{{ $testimonial->getLocalizedName() }}</h4>
+                        </div>
+                        <div class='quoteIcon'>
+                            <img src="{{ asset('assets/web/images/commas.png') }}" alt="quote" />
+                        </div>
+                    </div>
+                    <p>{{ $testimonial->getLocalizedMessage() }}</p>
+                </div>
+                @endforeach
+            </div>
+        </div>
+    </div>
+
+</div>
+<section class="heroActionA">
+    <div class="cardActionA" role="region" aria-label="Booking call to action">
+        <div class="eyebrowActionA"><span class="dotActionA"></span> {{$actionData?->getLocalizedEyebrow() ?? ''}}</div>
+        <h1 class="headingActionA">{{$actionData?->getLocalizedHeading() ?? ''}}</h1>
+        <p class="subActionA">{{$actionData?->getLocalizedSubText() ?? ''}}</p>
+        <div class="chipsActionA" aria-hidden="true">
+            <span class="chipActionA">{{$actionData?->getLocalizedChipOne() ?? ''}}</span>
+            <span class="chipActionA">{{$actionData?->getLocalizedChipTwo() ?? ''}}</span>
+            <span class="chipActionA">{{$actionData?->getLocalizedChipThree() ?? ''}}</span>
+        </div>
+        <div class="actionsActionA" role="group" aria-label="Contact options">
+            <a class="btnActionA btnPrimaryActionA" href="tel:{{$actionData?->phone ?? '+31615865040'}}" aria-label="Call us at {{$actionData?->phone ?? '+31615865040'}}">
+                <span class="shineActionA"></span>
+                <!-- phone icon -->
+                <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                    <path d="M21 16.5v3a2 2 0 0 1-2.18 2A19.8 19.8 0 0 1 3.5 6.18 2 2 0 0 1 5.5 4h3a1 1 0 0 1 1 .78l.7 3a1 1 0 0 1-.3.95l-1.2 1a16 16 0 0 0 6 6l1-1.2a1 1 0 0 1 .95-.3l3 .7a1 1 0 0 1 .78 1z" fill="currentColor" />
+                </svg>
+                {{$actionData?->phone ?? '+31615865040'}}
+            </a>
+            <a class="btnActionA btnGhostActionA" href="mailto:{{$actionData?->email ?? 'info@zalvant.com'}}" aria-label="Email us at {{$actionData?->email ?? 'info@zalvant.com'}}">
+                <span class="shineActionA"></span>
+                <!-- mail icon -->
+                <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                    <path d="M4 6h16a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2z" stroke="currentColor" stroke-width="1.5" />
+                    <path d="m22 8-10 6L2 8" stroke="currentColor" stroke-width="1.5" />
+                </svg>
+                {{$actionData?->email ?? 'info@zalvant.com'}}
+            </a>
+        </div>
+        <p class="noteActionA">{{$actionData?->getLocalizedFooterNote() ?? ''}}</p>
+    </div>
+</section>
 <div class="offringai3">
     <div class="topaiservicrs">
         <div class="bannerTextMain2">
@@ -1401,7 +1663,7 @@
                 <img src="{{ asset('assets/web/images/Rlogo.png') }}" alt="Rlogo">
                 <p>Top Services</p>
             </div>
-          
+
         </div>
         <div class="blogs-card-main">
             @foreach ($portfolios as $index => $portfolio)

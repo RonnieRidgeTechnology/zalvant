@@ -28,6 +28,9 @@ class LandingTypeController extends Controller
     {
         $data = $this->validateData($request);
 
+        // Handle deal images upload
+        $this->handleDealImagesUpload($request, $data);
+
         if (empty($data['slug'])) {
             $data['slug'] = Str::slug($data['name_en'] ?? $data['name']);
         }
@@ -49,6 +52,8 @@ class LandingTypeController extends Controller
     public function update(Request $request, LandingType $landingType)
     {
         $data = $this->validateData($request, $landingType->id);
+        // Handle deal images upload (keep old paths if no new file)
+        $this->handleDealImagesUpload($request, $data, $landingType);
 
         if (empty($data['slug'])) {
             $data['slug'] = Str::slug($data['name_en'] ?? $data['name']);
@@ -116,7 +121,7 @@ class LandingTypeController extends Controller
             'deal1_desc_en' => ['nullable', 'string'],
             'deal1_desc_fr' => ['nullable', 'string'],
             'deal1_desc_de' => ['nullable', 'string'],
-            'deal1_image' => ['nullable', 'string', 'max:255'],
+            'deal1_image' => ['nullable', 'image', 'max:2048'],
 
             // Deal 2
             'deal2_name' => ['nullable', 'string', 'max:255'],
@@ -127,7 +132,7 @@ class LandingTypeController extends Controller
             'deal2_desc_en' => ['nullable', 'string'],
             'deal2_desc_fr' => ['nullable', 'string'],
             'deal2_desc_de' => ['nullable', 'string'],
-            'deal2_image' => ['nullable', 'string', 'max:255'],
+            'deal2_image' => ['nullable', 'image', 'max:2048'],
 
             // Deal 3
             'deal3_name' => ['nullable', 'string', 'max:255'],
@@ -138,8 +143,32 @@ class LandingTypeController extends Controller
             'deal3_desc_en' => ['nullable', 'string'],
             'deal3_desc_fr' => ['nullable', 'string'],
             'deal3_desc_de' => ['nullable', 'string'],
-            'deal3_image' => ['nullable', 'string', 'max:255'],
+            'deal3_image' => ['nullable', 'image', 'max:2048'],
         ]);
+    }
+
+    /**
+     * Handle upload of deal images and fill $data with stored paths.
+     */
+    private function handleDealImagesUpload(Request $request, array &$data, ?LandingType $existing = null): void
+    {
+        foreach ([1, 2, 3] as $i) {
+            $field = "deal{$i}_image";
+
+            if ($request->hasFile($field)) {
+                $image = $request->file($field);
+                $imageName = uniqid('deal' . $i . '_') . '.' . $image->getClientOriginalExtension();
+                $destinationPath = public_path('uploads/landing-types');
+                if (!file_exists($destinationPath)) {
+                    mkdir($destinationPath, 0755, true);
+                }
+                $image->move($destinationPath, $imageName);
+                $data[$field] = 'uploads/landing-types/' . $imageName;
+            } elseif ($existing) {
+                // Preserve existing image path when not uploading new one
+                $data[$field] = $existing->$field;
+            }
+        }
     }
 
     public function toggleStatus(LandingType $landingType)

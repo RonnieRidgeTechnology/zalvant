@@ -127,7 +127,7 @@
             </div>
         @endif
 
-        <form action="{{ $formAction }}" method="POST">
+        <form action="{{ $formAction }}" method="POST" enctype="multipart/form-data">
             @csrf
             @if ($formMethod === 'PUT')
                 @method('PUT')
@@ -344,8 +344,13 @@
                 <textarea name="deal1_desc_de" class="form-control" rows="2">{{ old('deal1_desc_de', $type->deal1_desc_de) }}</textarea>
             </div>
             <div class="form-group">
-                <label class="form-label">Deal 1 Image Path</label>
-                <input type="text" name="deal1_image" class="form-control" value="{{ old('deal1_image', $type->deal1_image) }}" placeholder="e.g. assets/web/images/deal1.png">
+                <label class="form-label">Deal 1 Image</label>
+                @if ($type->deal1_image)
+                    <div style="margin-bottom:8px;">
+                        <img src="{{ asset($type->deal1_image) }}" alt="Deal 1" style="max-height:60px;">
+                    </div>
+                @endif
+                <input type="file" name="deal1_image" class="form-control" accept="image/*">
             </div>
 
             {{-- Deal 2 --}}
@@ -382,8 +387,13 @@
                 <textarea name="deal2_desc_de" class="form-control" rows="2">{{ old('deal2_desc_de', $type->deal2_desc_de) }}</textarea>
             </div>
             <div class="form-group">
-                <label class="form-label">Deal 2 Image Path</label>
-                <input type="text" name="deal2_image" class="form-control" value="{{ old('deal2_image', $type->deal2_image) }}" placeholder="e.g. assets/web/images/deal2.png">
+                <label class="form-label">Deal 2 Image</label>
+                @if ($type->deal2_image)
+                    <div style="margin-bottom:8px;">
+                        <img src="{{ asset($type->deal2_image) }}" alt="Deal 2" style="max-height:60px;">
+                    </div>
+                @endif
+                <input type="file" name="deal2_image" class="form-control" accept="image/*">
             </div>
 
             {{-- Deal 3 --}}
@@ -420,8 +430,13 @@
                 <textarea name="deal3_desc_de" class="form-control" rows="2">{{ old('deal3_desc_de', $type->deal3_desc_de) }}</textarea>
             </div>
             <div class="form-group">
-                <label class="form-label">Deal 3 Image Path</label>
-                <input type="text" name="deal3_image" class="form-control" value="{{ old('deal3_image', $type->deal3_image) }}" placeholder="e.g. assets/web/images/deal3.png">
+                <label class="form-label">Deal 3 Image</label>
+                @if ($type->deal3_image)
+                    <div style="margin-bottom:8px;">
+                        <img src="{{ asset($type->deal3_image) }}" alt="Deal 3" style="max-height:60px;">
+                    </div>
+                @endif
+                <input type="file" name="deal3_image" class="form-control" accept="image/*">
             </div>
 
             <button type="submit" class="action-button">
